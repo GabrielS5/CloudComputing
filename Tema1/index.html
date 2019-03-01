@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<title>Tema 1</title>
+		<link rel="stylesheet" href="css/styles.css?v=1.0" />
+	</head>
+
+	<body>
+		<style>
+			* {
+				margin: 0;
+			}
+			#image {
+				border: 3px solid black;
+			}
+			.header {
+				background-color: grey;
+				height: 12%;
+				width: 100%;
+			}
+			h1 {
+				padding-top: 25px;
+			}
+
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+				background-color: lightgrey;
+			}
+
+			.content {
+				background-color: lightgrey;
+				height: 88%;
+			}
+
+			.results {
+				margin-top: 25px;
+				background: white;
+				width: 50%;
+				border-radius: 25px;
+				border: 2px solid black;
+			}
+			.input {
+				padding-top: 3%;
+			}
+		</style>
+		<div class="header">
+			<center>
+				<h1>Country Finder</h1>
+			</center>
+		</div>
+		<div class="content">
+			<div class="input">
+				<center>
+					<span>Enter a Location:</span>
+					<input id="location" type="text" />
+					<input type="button" value="Send" onclick="onClick()" />
+				</center>
+			</div>
+			<center>
+				<div class="results">
+					<center>
+						<div id="details">
+						</div>
+					</center>
+				</div>
+			</center>
+			<br />
+			<center>
+				<img id="image" />
+			</center>
+		</div>
+		<script>
+			function onClick() {
+				let location = document.getElementById('location').value;
+				if (location == '') {
+				} else {
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							response = JSON.parse(this.responseText);
+							let details = document.getElementById('details');
+							details.innerText = '';
+							if (response.details == 'Not found') {
+								details.innerText += 'No details found, try a country\n';
+							} else {
+								details.innerText += ' Name: ' + response.details.name + '\n';
+								details.innerText += ' Region: ' + response.details.region + '\n';
+								details.innerText += ' Capital City: ' + response.details.capitalCity + '\n';
+								details.innerText += ' IncomeLevel: ' + response.details.incomeLevel + '\n';
+							}
+							details.innerText +=
+								'\nLocation: latitude -> ' +
+								response.location.lat +
+								' longitude -> ' +
+								response.location.lng +
+								'\n';
+							details.innerHTML += 'The data was scanned, here is the url-> <a href="' + response.scanUrl + '">Link</a>';
+
+							let image = document.getElementById('image');
+							image.src = 'data:image/jpeg;base64,' + response.image;
+						}
+					};
+					xhttp.open('GET', 'http://localhost:8000/compute?location=' + location, true);
+					xhttp.send();
+				}
+			}
+		</script>
+	</body>
+</html>

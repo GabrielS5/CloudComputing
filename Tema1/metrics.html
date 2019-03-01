@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<title>Tema 1</title>
+		<link rel="stylesheet" href="css/styles.css?v=1.0" />
+	</head>
+
+	<body>
+		<style>
+			* {
+				margin: 0;
+			}
+			#image {
+				border: 3px solid black;
+			}
+			.header {
+				background-color: grey;
+				height: 12%;
+				width: 100%;
+			}
+			h1 {
+				padding-top: 25px;
+			}
+
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+				background-color: lightgrey;
+			}
+
+			.content {
+				background-color: lightgrey;
+				height: 88%;
+			}
+
+			.results {
+				margin-top: 25px;
+				background: white;
+				width: 50%;
+				border-radius: 25px;
+				border: 2px solid black;
+			}
+			.input {
+				padding-top: 3%;
+			}
+		</style>
+		<div class="header">
+			<center>
+				<h1>Country Finder</h1>
+			</center>
+		</div>
+		<div class="content">
+			<center>
+				<div id="baseStats"></div>
+			</center>
+			<ul id="logs"></ul>
+		</div>
+		<script>
+			function getMetrics() {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						response = JSON.parse(this.responseText);
+						stats = document.getElementById('baseStats');
+						stats.innerText += 'Success Rate -> ' + response.SuccessRate + '\n';
+						stats.innerText += 'My Api Average Latency -> ' + response.myApiAverageLatency + '\n';
+						stats.innerText +=
+							'World Bank Average Latency -> ' + response.worldBankAverageLatency + '\n';
+						stats.innerText +=
+							'Open Cage Average Latency -> ' + response.OpenCageAverageLatency + '\n';
+						stats.innerText +=
+							'Virus Total Api Average Latency -> ' + response.virusTotalApiAverageLatency + '\n';
+						stats.innerText +=
+							'Image Maps Average Latency -> ' + response.imageMapsAverageLatency + '\n\n';
+
+						logs = document.getElementById('logs');
+
+						response.logs.forEach(log => {
+							logs.innerHTML +=
+								'<li>Api: ' +
+								log.API +
+								' Latency: ' +
+								log.Latency +
+								' Request: ' +
+								log.Request +
+								' Request Method: ' +
+								log.RequestMethod +
+								' Response: ' +
+								log.Response +
+								'</li>';
+						});
+					}
+				};
+				xhttp.open('GET', 'http://localhost:8000/metrics', true);
+				xhttp.send();
+			}
+
+			getMetrics();
+		</script>
+	</body>
+</html>
