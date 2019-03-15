@@ -1,0 +1,785 @@
+{
+	"info": {
+		"_postman_id": "cab67bdf-8256-4d33-832f-5f9c7de7e13d",
+		"name": "Tema2 CC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "http://localhost:8000/authors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Dale Carnegie\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Cum sa vorbim in public\",\n\t\"genre\": \"Psihologic\",\n\t\"authorId\": \"11a5915b-27db-4dab-8798-4cce9d7ddbe2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Adriana\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers/8fe9515c-9c3c-40f1-ac55-c41a5ceee873/books/c3266333-9f80-4ea9-9754-d4a6193a4d62",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/8fe9515c-9c3c-40f1-ac55-c41a5ceee873/books/c3266333-9f80-4ea9-9754-d4a6193a4d62",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"8fe9515c-9c3c-40f1-ac55-c41a5ceee873",
+								"books",
+								"c3266333-9f80-4ea9-9754-d4a6193a4d62"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82/books",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Fericirea imi scapa printre degete\",\n\t\"genre\": \"Motivational\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"82dafe01-c0cd-4db4-873b-a07400ba0b82",
+								"books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get",
+			"item": [
+				{
+					"name": "http://localhost:8000/authors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"82dafe01-c0cd-4db4-873b-a07400ba0b82"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"82dafe01-c0cd-4db4-873b-a07400ba0b82"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82/books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"82dafe01-c0cd-4db4-873b-a07400ba0b82",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82/books/91e943d3-9fb2-4fc4-ad36-9792c5af428b",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/82dafe01-c0cd-4db4-873b-a07400ba0b82/books/91e943d3-9fb2-4fc4-ad36-9792c5af428b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"82dafe01-c0cd-4db4-873b-a07400ba0b82",
+								"books",
+								"91e943d3-9fb2-4fc4-ad36-9792c5af428b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"73c85386-11b4-4be4-8d6e-e927027f235c",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"73c85386-11b4-4be4-8d6e-e927027f235c",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books/e5922973-9229-45b2-abc6-cbd5d664bced",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books/e5922973-9229-45b2-abc6-cbd5d664bced",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"73c85386-11b4-4be4-8d6e-e927027f235c",
+								"books",
+								"e5922973-9229-45b2-abc6-cbd5d664bced"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books/e5922973-9229-45b2-abc6-cbd5d664bced",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/books/e5922973-9229-45b2-abc6-cbd5d664bced",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"e5922973-9229-45b2-abc6-cbd5d664bced"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books/e5922973-9229-45b2-abc6-cbd5d664bced/reader",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/books/e5922973-9229-45b2-abc6-cbd5d664bced/reader",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"e5922973-9229-45b2-abc6-cbd5d664bced",
+								"reader"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books/e5922973-9229-45b2-abc6-cbd5d664bced/author",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Michelle Obama\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/books/e5922973-9229-45b2-abc6-cbd5d664bced/author",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"e5922973-9229-45b2-abc6-cbd5d664bced",
+								"author"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "put",
+			"item": [
+				{
+					"name": "http://localhost:8000/authors/5c7c5d99-a100-4b19-acab-9dbaa8b76420",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Michelle Obama\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/5c7c5d99-a100-4b19-acab-9dbaa8b76420",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"5c7c5d99-a100-4b19-acab-9dbaa8b76420"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books/5f7102d6-139a-46cb-8cca-664b4936fb4e",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Viata e usoara, nu-ti face griji\",\n\t\"genre\": \"Fiction\",\n\t\"authorId\": \"82dafe01-c0cd-4db4-873b-a07400ba0b82\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/books/5f7102d6-139a-46cb-8cca-664b4936fb4e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"5f7102d6-139a-46cb-8cca-664b4936fb4e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Gabriel\",\n\t\"books\": [\"e5922973-9229-45b2-abc6-cbd5d664bced\",\"5f7102d6-139a-46cb-8cca-664b4936fb4e\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"73c85386-11b4-4be4-8d6e-e927027f235c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete",
+			"item": [
+				{
+					"name": "http://localhost:8000/readers/9f720dde-aecd-453c-87dd-6d952e133b75",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/9f720dde-aecd-453c-87dd-6d952e133b75",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"9f720dde-aecd-453c-87dd-6d952e133b75"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/authors/7594e98e-d035-4835-bbf0-8b078d2f43b4",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/authors/7594e98e-d035-4835-bbf0-8b078d2f43b4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"authors",
+								"7594e98e-d035-4835-bbf0-8b078d2f43b4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/books/67730942-7d21-48c4-bca5-dc64f20a52e7",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/books/67730942-7d21-48c4-bca5-dc64f20a52e7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"67730942-7d21-48c4-bca5-dc64f20a52e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books/91e943d3-9fb2-4fc4-ad36-9792c5af428b",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/readers/73c85386-11b4-4be4-8d6e-e927027f235c/books/91e943d3-9fb2-4fc4-ad36-9792c5af428b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"readers",
+								"73c85386-11b4-4be4-8d6e-e927027f235c",
+								"books",
+								"91e943d3-9fb2-4fc4-ad36-9792c5af428b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
