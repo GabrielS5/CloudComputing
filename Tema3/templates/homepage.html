@@ -25,9 +25,13 @@
 						var parent = document.getElementById('listaQuery');
 
 						response.searchResponses.forEach(item => {
-							child = document.createElement('LI');
+							var child = document.createElement('A');
+							child.href = item.link;
 							child.innerText = item.title;
-							parent.appendChild(child);
+							var liChild = document.createElement('LI');
+							liChild.appendChild(child)
+
+							parent.appendChild(liChild);
 						});
 					}
 				};
