@@ -15,6 +15,7 @@
 from datetime import datetime
 import logging
 import os, requests,cgi, json, codecs
+import base64
 
 from flask import Flask, redirect, render_template, request
 
@@ -113,10 +114,10 @@ def upload_photo():
     return redirect('/')
 
 def getImageFromlocation(location):
-    url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&format=jpg&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
+    url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
-        image = codecs.encode(codecs.decode(response.content.hex(), 'hex'), 'base64').decode()
+        image = base64.b64encode(response.content)
         return image
     else:
         return False
