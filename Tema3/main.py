@@ -113,6 +113,21 @@ def upload_photo():
     # Redirect to the home page.
     return redirect('/')
 
+def getImageProperties(content):
+    client = vision.ImageAnnotatorClient()
+    image = vision.types.Image(content=content)
+
+    response = client.image_properties(content=content)
+    props = response.image_properties_annotation
+    print('Properties:')
+
+    for color in props.dominant_colors.colors:
+        print('fraction: {}'.format(color.pixel_fraction))
+        print('\tr: {}'.format(color.color.red))
+        print('\tg: {}'.format(color.color.green))
+        print('\tb: {}'.format(color.color.blue))
+        print('\ta: {}'.format(color.color.alpha))
+
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
@@ -151,6 +166,7 @@ def compute():
     datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
+    properties = getImageProperties(mapImage['binary'])
     # Redirect to the home page.
     return json.dumps({'searchResponses': searchResponses,"image":mapImage['base64']})
 
