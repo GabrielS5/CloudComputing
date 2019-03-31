@@ -113,7 +113,6 @@ def upload_photo():
     return redirect('/')
 
 def getImageFromlocation(location):
-    startTime = time.time()
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
