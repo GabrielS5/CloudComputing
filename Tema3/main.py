@@ -122,11 +122,15 @@ def getImageProperties(content):
     print('Properties:')
     greenColor = 0
     blueColor = 0
+    redColor = 0
     for color in props.dominant_colors.colors:
         greenColor += color.color.green * color.pixel_fraction
         blueColor += color.color.blue * color.pixel_fraction
+        redColor += color.color.red * color.pixel_fraction
     print("Green " + str(greenColor))
     print("Blue " + str(blueColor))
+    print("Red " + str(redColor))
+    print("Total " + str(blueColor + redColor + greenColor))
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
@@ -141,7 +145,10 @@ def getSearchResponses(query):
     url = 'https://www.googleapis.com/customsearch/v1?q=' + query + '&cx=013429757699244883815:0kpxacrknmm&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
-        return response.json()['items']
+        result = []
+        for item in response.json()['items']:
+            result.append({'title': item['title'], 'link': item['link']})
+        return result
     else:
         return False
 
