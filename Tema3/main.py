@@ -145,7 +145,7 @@ def compute():
     datastore_client.put(entity)
     image = getImageFromlocation(input)
     # Redirect to the home page.
-    return image
+    return json.dumps({"image":image})
 
 
 @app.errorhandler(500)
