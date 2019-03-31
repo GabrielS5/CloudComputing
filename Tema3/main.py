@@ -116,10 +116,7 @@ def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
-        image = codecs.encode(codecs.decode(response.content.hex(), 'hex'), 'base64').decode()
-        if image[-1] == '\n':
-            image = image[:-1]
-        return image
+        return response.content
     else:
         return False
 
