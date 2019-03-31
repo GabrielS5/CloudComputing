@@ -14,7 +14,7 @@
 
 from datetime import datetime
 import logging
-import os
+import os, requests
 
 from flask import Flask, redirect, render_template, request
 
