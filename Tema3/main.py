@@ -112,6 +112,29 @@ def upload_photo():
     # Redirect to the home page.
     return redirect('/')
 
+@app.route('/compute', methods=['GET', 'POST'])
+def compute():
+    input = request.args.get('query')
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
+    blob = bucket.blob(input)
+    blob.upload_from_string(input)
+    blob.make_public()
+    datastore_client = datastore.Client()
+    current_datetime = datetime.now()
+    kind = 'Locations'
+    name = blob.name
+    key = datastore_client.key(kind, name)
+    entity = datastore.Entity(key)
+    entity['blob_name'] = blob.name
+    entity['timestamp'] = current_datetime
+
+    # Save the new entity to Datastore.
+    datastore_client.put(entity)
+
+    # Redirect to the home page.
+    return redirect('/')
+
 
 @app.errorhandler(500)
 def server_error(e):
