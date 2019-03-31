@@ -117,7 +117,7 @@ def getImageProperties(content):
     client = vision.ImageAnnotatorClient()
     image = vision.types.Image(content=content)
 
-    response = client.image_properties(content=content)
+    response = client.image_properties(image=image)
     props = response.image_properties_annotation
     print('Properties:')
 
