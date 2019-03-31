@@ -120,13 +120,13 @@ def getImageProperties(content):
     response = client.image_properties(image=image)
     props = response.image_properties_annotation
     print('Properties:')
-
+    greenColor = 0
+    blueColor = 0
     for color in props.dominant_colors.colors:
-        print('fraction: {}'.format(color.pixel_fraction))
-        print('\tr: {}'.format(color.color.red))
-        print('\tg: {}'.format(color.color.green))
-        print('\tb: {}'.format(color.color.blue))
-        print('\ta: {}'.format(color.color.alpha))
+        greenColor += color.color.green * color.pixel_fraction
+        blueColor += color.color.blue * color.pixel_fraction
+    print("Green " + greenColor)
+    print("Blue " + blueColor)
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
