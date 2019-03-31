@@ -126,7 +126,7 @@ def getSearchResponses(query):
     url = 'https://www.googleapis.com/customsearch/v1?q=' + query + '&cx=013429757699244883815:0kpxacrknmm&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
-        return json.loads(response.content)['items']
+        return response.json()['items']
     else:
         return False
 
