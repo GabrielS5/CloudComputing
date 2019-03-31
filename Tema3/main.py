@@ -125,8 +125,8 @@ def getImageProperties(content):
     for color in props.dominant_colors.colors:
         greenColor += color.color.green * color.pixel_fraction
         blueColor += color.color.blue * color.pixel_fraction
-    print("Green " + greenColor)
-    print("Blue " + blueColor)
+    print("Green " + str(greenColor))
+    print("Blue " + str(blueColor))
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
