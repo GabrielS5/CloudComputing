@@ -118,7 +118,7 @@ def getImageFromlocation(location):
     response = requests.get(url)
     if response.ok:
         image = base64.b64encode(response.content).decode()
-        return image
+        return {'base64': image, 'binary': response.content}
     else:
         return False
 
@@ -149,10 +149,10 @@ def compute():
 
     # Save the new entity to Datastore.
     datastore_client.put(entity)
-    image = getImageFromlocation(input)
+    mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     # Redirect to the home page.
-    return json.dumps({"image":image, 'searchResponses': searchResponses})
+    return json.dumps({'searchResponses': searchResponses,"image":mapImage['base64']})
 
 
 @app.errorhandler(500)
