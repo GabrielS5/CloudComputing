@@ -11,8 +11,7 @@
 					var xhttp = new XMLHttpRequest();
 					xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-							response = JSON.parse(this.responseText);
-              console.log(response);
+              console.log(this.responseText);
 						}
 					};
 					xhttp.open('GET', 'https://8080-dot-6924241-dot-devshell.appspot.com/compute?query=' + input, true);

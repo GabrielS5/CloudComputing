@@ -113,10 +113,11 @@ def upload_photo():
     return redirect('/')
 
 def getImageFromlocation(location):
-    url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
+    url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&format=jpg&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
-        return response.content
+        image = codecs.encode(codecs.decode(response.content.hex(), 'hex'), 'base64').decode()
+        return image
     else:
         return False
 
@@ -142,7 +143,7 @@ def compute():
     datastore_client.put(entity)
     image = getImageFromlocation(input)
     # Redirect to the home page.
-    return json.dumps({"image":image})
+    return {"image":image}
 
 
 @app.errorhandler(500)
