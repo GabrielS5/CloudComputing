@@ -122,6 +122,13 @@ def getImageFromlocation(location):
     else:
         return False
 
+def getSearchResponses(query):
+    url = 'https://www.googleapis.com/customsearch/v1?q=' + query + '&cx=013429757699244883815:0kpxacrknmm&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
+    response = requests.get(url)
+    if response.ok:
+        return json.loads(response.content)['items']
+    else:
+        return False
 
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
@@ -143,8 +150,9 @@ def compute():
     # Save the new entity to Datastore.
     datastore_client.put(entity)
     image = getImageFromlocation(input)
+    searchResponses = getSearchResponses(input)
     # Redirect to the home page.
-    return json.dumps({"image":image})
+    return json.dumps({"image":image, 'searchResponses': searchResponses})
 
 
 @app.errorhandler(500)
