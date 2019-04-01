@@ -39,7 +39,7 @@ def getPlaceDetails(location):
     response = requests.get(url)
     if response.ok:
         candidates = response.json()['candidates']
-        if len(candidate) == 0:
+        if len(candidates) == 0:
             return False
         placeId = candidates[0]['place_id']
         url = 'https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM&placeid=' + placeId
