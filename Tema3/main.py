@@ -170,21 +170,34 @@ def getFromDatastore(name):
     query.add_filter('blob_name', '=', name)
     return list(query.fetch())
 
-def insertInDatastore():
-    i = 0
+def insertInDatastore(item):
+    blob = bucket.blob(item['name'] + '-blob')
+    blob.upload_from_string(item['image'])
+    blob.make_public()
+    datastore_client = datastore.Client()
+    kind = 'Location'
+    name = item['name']
+    key = datastore_client.key(kind, name)
+    entity = datastore.Entity(key)
+    entity['image_blob'] = blob.name
+    entity['imageProperties'] = item['imageProperties']
+    entity['searchResponses'] = item['searchResponses']
+    datastore_client.put(entity)
 
 
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
     input = request.args.get('query')
-    print(getFromDatastore(input)[0]['timestamp'])
+    #print(getFromDatastore(input)[0]['timestamp'])
 
     #datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
+    result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']}
+    insertInDatastore(result)
 
-    return json.dumps({'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']})
+    return result
 
 
 @app.errorhandler(500)
