@@ -165,22 +165,18 @@ def getSearchResponses(query):
     else:
         return False
 
+def getFromDatastore(key):
+    datastore_client = datastore.Client()
+    return datastore_client.get(key)
+
+def insertInDatastore():
+    i = 0
+
+
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
     input = request.args.get('query')
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
-    blob = bucket.blob(input)
-    blob.upload_from_string(input)
-    blob.make_public()
-    datastore_client = datastore.Client()
-    current_datetime = datetime.now()
-    kind = 'Locations'
-    name = blob.name
-    key = datastore_client.key(kind, name)
-    entity = datastore.Entity(key)
-    entity['blob_name'] = blob.name
-    entity['timestamp'] = current_datetime
+    console.log(getFromDatastore(input))
 
     datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
