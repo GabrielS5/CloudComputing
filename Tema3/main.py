@@ -133,12 +133,14 @@ def getImageProperties(content):
             mountainsAmount += color.pixel_fraction
         else:
             othersAmount += color.pixel_fraction
+
+    if waterAmount == 0:
+        waterAmount = 100 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount)
     total = waterAmount + fieldsAmount + mountainsAmount + othersAmount
     print("Water " + str(waterAmount* 100/total))
     print("Fields " + str(fieldsAmount* 100/total))
     print("Mountains " + str(mountainsAmount* 100/total ))
     print("others " + str(othersAmount* 100/total))
-    print(waterAmount + fieldsAmount + mountainsAmount + othersAmount)
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=800x800&maptype=roadmap&scale=2&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
