@@ -127,10 +127,10 @@ def getImageProperties(content):
         print(color.color.green,color.color.red,color.color.blue, color.pixel_fraction, color.color.alpha)
         if 200 <= color.color.green <= 222 and 169 <= color.color.red <= 189 and 230 <= color.color.blue :
             waterAmount += color.pixel_fraction
-        elif (236 <= color.color.green <= 246 and 234 <= color.color.red <= 244 and 225 <= color.color.blue <= 235) or (225 <= color.color.green <= 238 and 210 <= color.color.red <= 240 and 205 <= color.color.blue <= 230):
-            fieldsAmount += color.pixel_fraction
         elif 224 <= color.color.green <= 244 and 200 <= color.color.red <= 220 and 190 <= color.color.blue <= 210:
             mountainsAmount += color.pixel_fraction
+        elif (236 <= color.color.green <= 246 and 234 <= color.color.red <= 244 and 225 <= color.color.blue <= 235) or (225 <= color.color.green <= 238 and 210 <= color.color.red <= 240 and 205 <= color.color.blue <= 230):
+            fieldsAmount += color.pixel_fraction
         else:
             othersAmount += color.pixel_fraction
 
