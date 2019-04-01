@@ -171,6 +171,9 @@ def getFromDatastore(name):
     return list(query.fetch())
 
 def insertInDatastore(item):
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
+    
     blob = bucket.blob(item['name'] + '-blob')
     blob.upload_from_string(item['image'])
     blob.make_public()
