@@ -176,7 +176,7 @@ def insertInDatastore():
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
     input = request.args.get('query')
-    print(getFromDatastore(input))
+    print(getFromDatastore(datastore_client.key("Location", input)))
 
     datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
