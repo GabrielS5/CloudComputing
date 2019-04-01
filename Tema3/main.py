@@ -124,6 +124,7 @@ def getImageProperties(content):
     mountainsAmount = 0
     othersAmount = 0
     for color in props.dominant_colors.colors:
+        print(color.color.green,color.color.red,color.color.blue, color.pixel_fraction)
         if 213 <= color.color.green <= 223 and 165 <= color.color.red <= 175 and 245 <= color.color.blue:
             waterAmount += color.pixel_fraction
         elif 240 <= color.color.green <= 250 and 240 <= color.color.red <= 250 and 240 <= color.color.blue <= 250:
