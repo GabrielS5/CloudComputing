@@ -167,7 +167,7 @@ def getSearchResponses(query):
 
 def getFromDatastore(name):
     datastore_client = datastore.Client()
-    return datastore_client.get(datastore_client.key("Location",name) )
+    return datastore_client.key("Location",name).get()
 
 def insertInDatastore():
     i = 0
