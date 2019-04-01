@@ -178,7 +178,7 @@ def compute():
     input = request.args.get('query')
     print(getFromDatastore(input))
 
-    datastore_client.put(entity)
+    #datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
