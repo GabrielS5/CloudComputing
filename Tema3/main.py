@@ -119,18 +119,23 @@ def getImageProperties(content):
 
     response = client.image_properties(image=image)
     props = response.image_properties_annotation
-    print('Properties:')
-    greenColor = 0
-    blueColor = 0
-    redColor = 0
+    waterAmount = 0
+    fieldsAmount = 0
+    mountainsAmount = 0
+    othersAmount = 0
     for color in props.dominant_colors.colors:
-        greenColor += color.color.green * color.pixel_fraction
-        blueColor += color.color.blue * color.pixel_fraction
-        redColor += color.color.red * color.pixel_fraction
-    print("Green " + str(greenColor))
-    print("Blue " + str(blueColor))
-    print("Red " + str(redColor))
-    print("Total " + str(blueColor + redColor + greenColor))
+        if 213 <= color.color.green <= 223 and 165 <= color.color.red <= 175 and 245 <= color.color.blue:
+            waterAmount += color.pixel_fraction
+        elif 240 <= color.color.green <= 250 and 240 <= color.color.red <= 250 and 240 <= color.color.blue <= 250:
+            fieldsAmount += color.pixel_fraction
+        elif 228 <= color.color.green <= 238 and 194 <= color.color.red <= 204 and 194 <= color.color.blue <= 204:
+            mountainsAmount += color.pixel_fraction
+        else:
+            othersAmount += color.pixel_fraction 
+    print("Water " + str(waterAmount))
+    print("Fields " + str(fieldsAmount))
+    print("Mountains " + str(mountainsAmount))
+    print("others " + str(othersAmount))
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
