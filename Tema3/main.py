@@ -137,7 +137,7 @@ def compute():
     if not databaseItem == False:
         return json.dumps(databaseItem)
 
-    getPlaceDetails(location)
+    getPlaceDetails(input)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
