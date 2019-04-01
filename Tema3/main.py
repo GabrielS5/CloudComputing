@@ -198,10 +198,8 @@ def compute():
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
     result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']}
-    print('da')
     insertInDatastore(result)
-    print('nu')
-    return result
+    return json.dumps(result)
 
 
 @app.errorhandler(500)
