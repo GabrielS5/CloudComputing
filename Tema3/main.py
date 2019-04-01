@@ -14,7 +14,7 @@
 
 from datetime import datetime
 import logging
-import os, requests,cgi, json, codecs
+import os, requests,cgi, json, codecs,math
 import base64
 
 from flask import Flask, redirect, render_template, request
@@ -143,7 +143,7 @@ def getImageProperties(content):
     else:
         othersAmount += 1 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount)
 
-    return {'water': waterAmount* 100, 'fields': fieldsAmount* 100, 'mountains': mountainsAmount * 100, 'others': othersAmount * 100}
+    return {'water': math.round(waterAmount* 100), 'fields': math.round(fieldsAmount* 100), 'mountains': math.round(mountainsAmount * 100), 'others': math.round(othersAmount * 100)}
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=800x800&maptype=roadmap&scale=2&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
