@@ -127,16 +127,17 @@ def getImageProperties(content):
         print(color.color.green,color.color.red,color.color.blue, color.pixel_fraction, color.color.alpha)
         if 211 <= color.color.green <= 221 and 178 <= color.color.red <= 188 and 230 <= color.color.blue <= 240:
             waterAmount += color.pixel_fraction
-        elif 236 <= color.color.green <= 246 and 234 <= color.color.red <= 244 and 225 <= color.color.blue <= 235:
+        elif (236 <= color.color.green <= 246 and 234 <= color.color.red <= 244 and 225 <= color.color.blue <= 235) or (228 <= color.color.green <= 238 and 225 <= color.color.red <= 235 and 218 <= color.color.blue <= 228):
             fieldsAmount += color.pixel_fraction
         elif 229 <= color.color.green <= 239 and 210 <= color.color.red <= 220 and 200 <= color.color.blue <= 210:
             mountainsAmount += color.pixel_fraction
         else:
-            othersAmount += color.pixel_fraction 
-    print("Water " + str(waterAmount))
-    print("Fields " + str(fieldsAmount))
-    print("Mountains " + str(mountainsAmount))
-    print("others " + str(othersAmount))
+            othersAmount += color.pixel_fraction
+    total = waterAmount + fieldsAmount + mountainsAmount + othersAmount
+    print("Water " + str(waterAmount* 100/total))
+    print("Fields " + str(fieldsAmount* 100/total))
+    print("Mountains " + str(mountainsAmount* 100/total ))
+    print("others " + str(othersAmount* 100/total))
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
