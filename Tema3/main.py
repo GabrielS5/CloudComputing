@@ -203,7 +203,7 @@ def insertInDatastore(item):
 def compute():
     input = request.args.get('query')
     databaseItem = getFromDatastore(input)
-    if databaseItem not False:
+    if not databaseItem == False:
         return json.dumps(databaseItem)
 
     mapImage = getImageFromlocation(input)
