@@ -173,7 +173,7 @@ def getFromDatastore(name):
 def insertInDatastore(item):
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
-    
+
     blob = bucket.blob(item['name'] + '-blob')
     blob.upload_from_string(item['image'])
     blob.make_public()
@@ -198,8 +198,9 @@ def compute():
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
     result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']}
+    print('da')
     insertInDatastore(result)
-
+    print('nu')
     return result
 
 
