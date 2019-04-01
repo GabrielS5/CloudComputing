@@ -178,7 +178,7 @@ def getFromDatastore(name):
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
     blob = bucket.get_blob(result['image_blob'])
-    print(blob.download_as_string())
+    return  {'name': result['name'], 'imageProperties': result['imageProperties'], 'searchResponses': result['searchResponses'],"image":blob.download_as_string()}
 
 def insertInDatastore(item):
     storage_client = storage.Client()
@@ -202,9 +202,10 @@ def insertInDatastore(item):
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
     input = request.args.get('query')
-    print(getFromDatastore(input))
+    databaseItem = getFromDatastore(input)
+    if databaseItem not False:
+        return json.dumps(databaseItem)
 
-    #datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
