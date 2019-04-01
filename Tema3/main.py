@@ -143,7 +143,7 @@ def getImageProperties(content):
     else:
         othersAmount += 1 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount)
 
-    return {'water': math.round(waterAmount* 100), 'fields': math.round(fieldsAmount* 100), 'mountains': math.round(mountainsAmount * 100), 'others': math.round(othersAmount * 100)}
+    return {'water': round(waterAmount* 100,2), 'fields': round(fieldsAmount* 100,2), 'mountains': round(mountainsAmount * 100,2), 'others': round(othersAmount * 100,2)}
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=800x800&maptype=roadmap&scale=2&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
