@@ -126,7 +126,6 @@ def getImageProperties(content):
     othersAmount = 0
 
     for color in props.dominant_colors.colors:
-        print(color.color.green,color.color.red,color.color.blue, color.pixel_fraction, color.color.alpha)
         if 200 <= color.color.green <= 222 and 169 <= color.color.red <= 189 and 230 <= color.color.blue :
             waterAmount += color.pixel_fraction
         elif 224 <= color.color.green <= 244 and 200 <= color.color.red <= 220 and 190 <= color.color.blue <= 210:
@@ -167,7 +166,7 @@ def getSearchResponses(query):
 
 def getFromDatastore(name):
     datastore_client = datastore.Client()
-    return datastore_client.key("Location",name).get()
+    return datastore.Entity(key=datastore_client.key('Locations', name))
 
 def insertInDatastore():
     i = 0
