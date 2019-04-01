@@ -32,86 +32,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    # Create a Cloud Datastore client.
-    datastore_client = datastore.Client()
+    return render_template('homepage.html')
 
-    # Use the Cloud Datastore client to fetch information from Datastore about
-    # each photo.
-    query = datastore_client.query(kind='Faces')
-    image_entities = list(query.fetch())
-
-    # Return a Jinja2 HTML template and pass in image_entities as a parameter.
-    return render_template('homepage.html', image_entities=image_entities)
-
-
-@app.route('/upload_photo', methods=['GET', 'POST'])
-def upload_photo():
-    photo = request.files['file']
-
-    # Create a Cloud Storage client.
-    storage_client = storage.Client()
-
-    # Get the bucket that the file will be uploaded to.
-    bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
-
-    # Create a new blob and upload the file's content.
-    blob = bucket.blob(photo.filename)
-    blob.upload_from_string(
-            photo.read(), content_type=photo.content_type)
-
-    # Make the blob publicly viewable.
-    blob.make_public()
-
-    # Create a Cloud Vision client.
-    vision_client = vision.ImageAnnotatorClient()
-
-    # Use the Cloud Vision client to detect a face for our image.
-    source_uri = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob.name)
-    image = vision.types.Image(
-        source=vision.types.ImageSource(gcs_image_uri=source_uri))
-    faces = vision_client.face_detection(image).face_annotations
-
-    # If a face is detected, save to Datastore the likelihood that the face
-    # displays 'joy,' as determined by Google's Machine Learning algorithm.
-    if len(faces) > 0:
-        face = faces[0]
-
-        # Convert the likelihood string.
-        likelihoods = [
-            'Unknown', 'Very Unlikely', 'Unlikely', 'Possible', 'Likely',
-            'Very Likely']
-        face_joy = likelihoods[face.joy_likelihood]
+def getPlaceDetails(location):
+    url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM&input=' + location + '&inputtype=textquery'
+    response = requests.get(url)
+    if response.ok:
+        print(response.content)
     else:
-        face_joy = 'Unknown'
-
-    # Create a Cloud Datastore client.
-    datastore_client = datastore.Client()
-
-    # Fetch the current date / time.
-    current_datetime = datetime.now()
-
-    # The kind for the new entity.
-    kind = 'Faces'
-
-    # The name/ID for the new entity.
-    name = blob.name
-
-    # Create the Cloud Datastore key for the new entity.
-    key = datastore_client.key(kind, name)
-
-    # Construct the new entity using the key. Set dictionary values for entity
-    # keys blob_name, storage_public_url, timestamp, and joy.
-    entity = datastore.Entity(key)
-    entity['blob_name'] = blob.name
-    entity['image_public_url'] = blob.public_url
-    entity['timestamp'] = current_datetime
-    entity['joy'] = face_joy
-
-    # Save the new entity to Datastore.
-    datastore_client.put(entity)
-
-    # Redirect to the home page.
-    return redirect('/')
+        return False
 
 def getImageProperties(content):
     client = vision.ImageAnnotatorClient()
@@ -208,6 +137,7 @@ def compute():
     if not databaseItem == False:
         return json.dumps(databaseItem)
 
+    getPlaceDetails(location)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
