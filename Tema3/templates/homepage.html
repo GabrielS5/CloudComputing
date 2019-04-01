@@ -41,10 +41,10 @@
 						var imageProperties = document.getElementById('imageProperties');
 
 						imageProperties.innerText = '';
-						imageProperties.innerText += "% of fields " + response.imageProperties.fields + '\n';
-						imageProperties.innerText += "% of mountains " + response.imageProperties.mountains + '\n';
-						imageProperties.innerText += "% of water " + response.imageProperties.water + '\n';
-						imageProperties.innerText += "Others " + response.imageProperties.others + '\n';
+						imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
+						imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
+						imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
+						imageProperties.innerText += "Others " + response.imageProperties.others + '%\n';
 					}
 				};
 				xhttp.open(
