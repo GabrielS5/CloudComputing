@@ -38,7 +38,7 @@ def getPlaceDetails(location):
     url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM&input=' + location + '&inputtype=textquery'
     response = requests.get(url)
     if response.ok:
-        print(response.content)
+        print(response.json())
     else:
         return False
 
