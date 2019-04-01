@@ -136,8 +136,11 @@ def getImageProperties(content):
 
     if waterAmount == 0:
         waterAmount = 1 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount)
+    if mountainsAmount == 0:
+        mountainsAmount = (1 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount))/3
     else:
         othersAmount += 1 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount)
+
     print("Water " + str(waterAmount* 100))
     print("Fields " + str(fieldsAmount* 100))
     print("Mountains " + str(mountainsAmount* 100 ))
