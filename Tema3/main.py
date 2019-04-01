@@ -119,10 +119,12 @@ def getImageProperties(content):
 
     response = client.image_properties(image=image)
     props = response.image_properties_annotation
+
     waterAmount = 0
     fieldsAmount = 0
     mountainsAmount = 0
     othersAmount = 0
+
     for color in props.dominant_colors.colors:
         print(color.color.green,color.color.red,color.color.blue, color.pixel_fraction, color.color.alpha)
         if 200 <= color.color.green <= 222 and 169 <= color.color.red <= 189 and 230 <= color.color.blue :
@@ -141,10 +143,7 @@ def getImageProperties(content):
     else:
         othersAmount += 1 - (waterAmount + fieldsAmount + mountainsAmount + othersAmount)
 
-    print("Water " + str(waterAmount* 100))
-    print("Fields " + str(fieldsAmount* 100))
-    print("Mountains " + str(mountainsAmount* 100 ))
-    print("others " + str(othersAmount* 100))
+    return {'water': waterAmount* 100, 'fields': fieldsAmount* 100, 'mountains': mountains * 100, 'others': othersAmount * 100}
 
 def getImageFromlocation(location):
     url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&size=800x800&maptype=roadmap&scale=2&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
@@ -183,13 +182,12 @@ def compute():
     entity['blob_name'] = blob.name
     entity['timestamp'] = current_datetime
 
-    # Save the new entity to Datastore.
     datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
-    properties = getImageProperties(mapImage['binary'])
-    # Redirect to the home page.
-    return json.dumps({'searchResponses': searchResponses,"image":mapImage['base64']})
+    imageProperties = getImageProperties(mapImage['binary'])
+
+    return json.dumps({'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']})
 
 
 @app.errorhandler(500)
