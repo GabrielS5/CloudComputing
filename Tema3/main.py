@@ -166,7 +166,7 @@ def getSearchResponses(query):
 
 def getFromDatastore(name):
     datastore_client = datastore.Client()
-    query = datastore_client.query(kind='Locations')
+    query = datastore_client.query(kind='Location')
     query.add_filter('name', '=', name)
     result = list(query.fetch())
 
