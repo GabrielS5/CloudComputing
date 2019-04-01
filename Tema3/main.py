@@ -140,7 +140,7 @@ def getImageProperties(content):
     print("others " + str(othersAmount* 100/total))
 
 def getImageFromlocation(location):
-    url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&zoom=7&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
+    url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + location + '&zoom=6.5&size=600x600&maptype=roadmap&key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM'
     response = requests.get(url)
     if response.ok:
         image = base64.b64encode(response.content).decode()
