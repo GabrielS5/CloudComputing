@@ -125,7 +125,7 @@ def getImageProperties(content):
     othersAmount = 0
     for color in props.dominant_colors.colors:
         print(color.color.green,color.color.red,color.color.blue, color.pixel_fraction, color.color.alpha)
-        if 213 <= color.color.green <= 223 and 165 <= color.color.red <= 175 and 245 <= color.color.blue:
+        if 211 <= color.color.green <= 221 and 178 <= color.color.red <= 188 and 230 <= color.color.blue <= 240:
             waterAmount += color.pixel_fraction
         elif 236 <= color.color.green <= 246 and 234 <= color.color.red <= 244 and 225 <= color.color.blue <= 235:
             fieldsAmount += color.pixel_fraction
