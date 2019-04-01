@@ -10,6 +10,10 @@
 		<div>
 			<img id="imagine" />
 		</div>
+
+		<div id='imageProperties'>
+
+		</div>
 	</body>
 	<script>
 		function onSend() {
@@ -23,6 +27,7 @@
 						document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
 
 						var parent = document.getElementById('listaQuery');
+						parent.innerHTML = '';
 
 						response.searchResponses.forEach(item => {
 							var child = document.createElement('A');
@@ -30,9 +35,16 @@
 							child.innerText = item.title;
 							var liChild = document.createElement('LI');
 							liChild.appendChild(child)
-
 							parent.appendChild(liChild);
 						});
+
+						var imageProperties = document.getElementById('imageProperties');
+
+						imageProperties.innerText = '';
+						imageProperties.innerText += "% of fields " + response.imageProperties.fields + '\n';
+						imageProperties.innerText += "% of mountains " + response.imageProperties.mountains + '\n';
+						imageProperties.innerText += "% of water " + response.imageProperties.water + '\n';
+						imageProperties.innerText += "others" + response.imageProperties.others + '\n';
 					}
 				};
 				xhttp.open(
