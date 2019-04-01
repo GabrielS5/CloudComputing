@@ -167,8 +167,18 @@ def getSearchResponses(query):
 def getFromDatastore(name):
     datastore_client = datastore.Client()
     query = datastore_client.query(kind='Locations')
-    query.add_filter('blob_name', '=', name)
-    return list(query.fetch())
+    query.add_filter('name', '=', name)
+    result = list(query.fetch())
+
+    if result == []:
+        return False
+    
+    result = result[0]
+
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
+    blob = bucket.get_blob(result['image_blob'])
+    print(blob.download_as_string())
 
 def insertInDatastore(item):
     storage_client = storage.Client()
@@ -191,7 +201,7 @@ def insertInDatastore(item):
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
     input = request.args.get('query')
-    #print(getFromDatastore(input)[0]['timestamp'])
+    print(getFromDatastore(input))
 
     #datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
