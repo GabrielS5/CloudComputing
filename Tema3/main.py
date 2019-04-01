@@ -192,6 +192,7 @@ def insertInDatastore(item):
     name = item['name']
     key = datastore_client.key(kind, name)
     entity = datastore.Entity(key)
+    entity['name'] = item['name']
     entity['image_blob'] = blob.name
     entity['imageProperties'] = item['imageProperties']
     entity['searchResponses'] = item['searchResponses']
