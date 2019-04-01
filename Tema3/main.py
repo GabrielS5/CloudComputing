@@ -165,9 +165,9 @@ def getSearchResponses(query):
     else:
         return False
 
-def getFromDatastore(key):
+def getFromDatastore(name):
     datastore_client = datastore.Client()
-    return datastore_client.get(key)
+    return datastore_client.get(datastore_client.key("Location",name) )
 
 def insertInDatastore():
     i = 0
@@ -176,7 +176,7 @@ def insertInDatastore():
 @app.route('/compute', methods=['GET', 'POST'])
 def compute():
     input = request.args.get('query')
-    print(getFromDatastore(datastore_client.key("Location", input)))
+    print(getFromDatastore(input))
 
     datastore_client.put(entity)
     mapImage = getImageFromlocation(input)
