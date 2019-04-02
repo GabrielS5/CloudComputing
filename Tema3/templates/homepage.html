@@ -1,59 +1,73 @@
 <html>
-	<body>
-		<input type="text" id="client-input" />
-		<input type="button" value="Send" onclick="onSend()" />
 
-		<div>
-			<ul id="listaQuery"></ul>
-		</div>
+<body>
+	<input type="text" id="client-input" />
+	<input type="button" value="Send" onclick="onSend()" />
 
-		<div>
-			<img id="imagine" />
-		</div>
+	<div>
+		<ul id="listaQuery"></ul>
+	</div>
 
-		<div id='imageProperties'>
+	<div>
+		<img id="imagine" />
+	</div>
 
-		</div>
-	</body>
-	<script>
-		function onSend() {
-			let input = document.getElementById('client-input').value;
-			if (location == '') {
-			} else {
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						response = JSON.parse(xhttp.responseText);
-						document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
+	<div id='imageProperties'>
 
-						var parent = document.getElementById('listaQuery');
-						parent.innerHTML = '';
+	</div>
+	<div id='placeDetails'>
 
-						response.searchResponses.forEach(item => {
-							var child = document.createElement('A');
-							child.href = item.link;
-							child.innerText = item.title;
-							var liChild = document.createElement('LI');
-							liChild.appendChild(child)
-							parent.appendChild(liChild);
-						});
+	</div>
+</body>
+<script>
+	function onSend() {
+		let input = document.getElementById('client-input').value;
+		if (location == '') {
+		} else {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					response = JSON.parse(xhttp.responseText);
+					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
 
-						var imageProperties = document.getElementById('imageProperties');
+					var parent = document.getElementById('listaQuery');
+					parent.innerHTML = '';
 
-						imageProperties.innerText = '';
-						imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
-						imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
-						imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
-						imageProperties.innerText += "Others " + response.imageProperties.others + '%\n';
-					}
-				};
-				xhttp.open(
-					'GET',
-					'https://8080-dot-6924241-dot-devshell.appspot.com/compute?query=' + input,
-					true
-				);
-				xhttp.send();
-			}
+					response.searchResponses.forEach(item => {
+						var child = document.createElement('A');
+						child.href = item.link;
+						child.innerText = item.title;
+						var liChild = document.createElement('LI');
+						liChild.appendChild(child)
+						parent.appendChild(liChild);
+					});
+
+					var imageProperties = document.getElementById('imageProperties');
+
+					imageProperties.innerText = '';
+					imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
+					imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
+					imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
+					imageProperties.innerText += "Others " + response.imageProperties.others + '%\n';
+
+					var placeDetails = document.getElementById('placeDetails');
+
+					placeDetails.innerText = '';
+					placeDetails.innerText += "Long Name      " + response.placeDetails.longName + '%\n';
+					placeDetails.innerText += "Short Name     " + response.placeDetails.shortName + '%\n';
+					placeDetails.innerText += "Location Type  " + response.placeDetails.type + '%\n';
+					placeDetails.innerText += "Latitude      " + response.placeDetails.latitude + '%\n';
+					placeDetails.innerText += "Longitude      " + response.placeDetails.longitude + '%\n';
+				}
+			};
+			xhttp.open(
+				'GET',
+				'https://8080-dot-6924241-dot-devshell.appspot.com/compute?query=' + input,
+				true
+			);
+			xhttp.send();
 		}
-	</script>
+	}
+</script>
+
 </html>
