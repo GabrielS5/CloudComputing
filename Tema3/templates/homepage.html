@@ -53,11 +53,11 @@
 					var placeDetails = document.getElementById('placeDetails');
 
 					placeDetails.innerText = '';
-					placeDetails.innerText += "Long Name      " + response.placeDetails.longName + '%\n';
-					placeDetails.innerText += "Short Name     " + response.placeDetails.shortName + '%\n';
-					placeDetails.innerText += "Location Type  " + response.placeDetails.type + '%\n';
-					placeDetails.innerText += "Latitude      " + response.placeDetails.latitude + '%\n';
-					placeDetails.innerText += "Longitude      " + response.placeDetails.longitude + '%\n';
+					placeDetails.innerText += "Long Name      &nbsp;&nbsp;" + response.placeDetails.longName + '\n';
+					placeDetails.innerText += "Short Name     &nbsp;&nbsp;" + response.placeDetails.shortName + '\n';
+					placeDetails.innerText += "Location Type &nbsp;&nbsp;" + response.placeDetails.type + '\n';
+					placeDetails.innerText += "Latitude      " + response.placeDetails.latitude + '\n';
+					placeDetails.innerText += "Longitude      " + response.placeDetails.longitude + '\n';
 				}
 			};
 			xhttp.open(
