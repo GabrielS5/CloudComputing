@@ -8,14 +8,15 @@
 		<ul id="listaQuery"></ul>
 	</div>
 
+	<div id='placeDetails'>
+
+	</div>
+
 	<div>
 		<img id="imagine" />
 	</div>
 
 	<div id='imageProperties'>
-
-	</div>
-	<div id='placeDetails'>
 
 	</div>
 </body>
@@ -52,12 +53,12 @@
 
 					var placeDetails = document.getElementById('placeDetails');
 
-					placeDetails.innerHtml = '';
-					placeDetails.innerHtml += "Long Name     &emsp;" + response.placeDetails.longName + '\n';
-					placeDetails.innerHtml += "Short Name     &emsp;" + response.placeDetails.shortName + '\n';
-					placeDetails.innerHtml += "Location Type &emsp;" + response.placeDetails.type + '\n';
-					placeDetails.innerHtml += "Latitude      " + response.placeDetails.latitude + '\n';
-					placeDetails.innerHtml += "Longitude      " + response.placeDetails.longitude + '\n';
+					placeDetails.innerText = '';
+					placeDetails.innerText += "Long Name " + response.placeDetails.longName + '\n';
+					placeDetails.innerText += "Short Name " + response.placeDetails.shortName + '\n';
+					placeDetails.innerText += "Location " + response.placeDetails.type + '\n';
+					placeDetails.innerText += "Latitude " + response.placeDetails.latitude + '\n';
+					placeDetails.innerText += "Longitude " + response.placeDetails.longitude + '\n';
 				}
 			};
 			xhttp.open(
