@@ -45,7 +45,8 @@ def getPlaceDetails(location):
         url = 'https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM&placeid=' + placeId
         response = requests.get(url)
         if response.ok:
-            print(response.json())
+            result = response.json()['result']
+            return {'latitude': result['geometry']['location']['lat'], 'longitude': result['geometry']['location']['lng'], 'shortName': 'latitude': result['address_components'][0]['short_name'], 'type': result['types'][0]}
         else:
             return False
     else:
@@ -146,7 +147,7 @@ def compute():
     if not databaseItem == False:
         return json.dumps(databaseItem)
 
-    getPlaceDetails(input)
+    print(getPlaceDetails(input))
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
