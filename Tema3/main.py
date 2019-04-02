@@ -46,7 +46,7 @@ def getPlaceDetails(location):
         response = requests.get(url)
         if response.ok:
             result = response.json()['result']
-            return {'latitude': result['geometry']['location']['lat'], 'longitude': result['geometry']['location']['lng'], 'shortName': 'latitude': result['address_components'][0]['short_name'], 'type': result['types'][0]}
+            return {'latitude': result['geometry']['location']['lat'], 'longitude': result['geometry']['location']['lng'], 'shortName': result['address_components'][0]['short_name'],'longName': result['address_components'][0]['long_name'], 'type': result['types'][0]}
         else:
             return False
     else:
