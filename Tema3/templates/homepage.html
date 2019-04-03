@@ -118,11 +118,26 @@
                     
 					if (response.placeDetails != false) {
 						placeDetails.innerText +='Some details:' + '\n';
-						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
-						placeDetails.innerText += "Short Name -> " + response.placeDetails.shortName + '\n';
-						placeDetails.innerText += "Location Type -> " + response.placeDetails.type + '\n';
-						placeDetails.innerText += "Latitude -> " + response.placeDetails.latitude + '\n';
-						placeDetails.innerText += "Longitude -> " + response.placeDetails.longitude + '\n';
+						var liChild = document.createElement('LI');
+						liChild.innerText += "Long Name -> " + response.placeDetails.longName;
+						liChild.style ="margin-left:15px;"
+						placeDetails.appendChild(liChild);
+						var liChild = document.createElement('LI');
+						liChild.innerText += "Short Name -> " + response.placeDetails.shortName;
+						liChild.style ="margin-left:15px;"
+						placeDetails.appendChild(liChild);
+						var liChild = document.createElement('LI');
+						liChild.innerText += "Location Type -> " + response.placeDetails.type;
+						liChild.style ="margin-left:15px;"
+						placeDetails.appendChild(liChild);
+						var liChild = document.createElement('LI');
+						liChild.innerText += "Latitude -> " + response.placeDetails.latitude;
+						liChild.style ="margin-left:15px;"
+						placeDetails.appendChild(liChild);
+						var liChild = document.createElement('LI');
+						liChild.innerText += "Longitude -> " + response.placeDetails.longitude;
+						liChild.style ="margin-left:15px;"
+						placeDetails.appendChild(liChild);
 						placeDetails.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
 					}
 				}
