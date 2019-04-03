@@ -1,24 +1,70 @@
 <html>
+	<head>
+		<meta charset="utf-8" />
 
+		<title>Tema 3</title>
+		<style>
+		body {
+			background-color:cornflowerblue;
+		}
+		
+		#title{
+			text-align: center;
+			font-size: 150px;
+			font-style: italic;
+		}
+		#text{
+			padding-top: 10px;
+			font-size: 30px;
+		}
+		#content{
+			display:flex;
+			justify-content: space-evenly;
+			flex-direction: column;
+            align-items: center;
+			padding-top: 50px;
+		}
+		#listaQuery{
+			font-size: 20px;
+		}
+		#placeDetails{
+
+		}
+		#imageProperties{
+
+		}
+
+		</style>
+	</head>
 <body>
-	<input type="text" id="client-input" />
-	<input type="button" value="Send" onclick="onSend()" />
+	<div id="title">Hello there!</div>
+	<div id="content">
+		<div id = "text">
+			I will give you information about any location you want.
+		</div>
+        <div id = "text">
+			<span><b>Enter a location:</b></span>
+			<br />
+			<input type="text" id="client-input" />
+			<input type="button" value="Send" onclick="onSend()" />
+		</div>
 
-	<div>
-		<ul id="listaQuery"></ul>
-	</div>
+	    <div>
+		    <ul id="listaQuery"></ul>
+	    </div>
 
-	<div id='placeDetails'>
+	    <div id='placeDetails'>
 
-	</div>
+	    </div>
 
-	<div>
-		<img id="imagine" />
-	</div>
+	    <div>
+		    <img id="imagine" />
+	    </div>
 
-	<div id='imageProperties'>
+	    <div id='imageProperties'>
 
-	</div>
+	    </div>
+    </div>
 </body>
 <script>
 	function onSend() {
@@ -30,6 +76,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
+					//document.getElementById('imagine').style = "width:1000px;height:400px;"
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
