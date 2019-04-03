@@ -25,20 +25,20 @@
 			padding-top: 50px;
 		}
 		#listaQuery{
-			padding-top: 10px;
-			font-size: 25px;
+			
+			font-size: 20px;
 		}
 		#googleSearch{
-			padding-top: 10px;
-			font-size: 30px;
+			
+			font-size: 25px;
 		}
 		#placeDetails{
-			padding-top: 10px;
-			font-size: 25px;
+			
+			font-size: 20px;
 		}
 		#imageProperties{
-			padding-top: 10px;
-			font-size: 25px;
+			
+			font-size: 20px;
 		}
 
 		</style>
@@ -83,9 +83,9 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					document.getElementById('imagine').style = "width:1000px;height:400px;"
+					document.getElementById('imagine').style = "width:1000px;height:800px;"
 
-					document.getElementById('googleSearch').innerHTML = "Restults from google:";
+					document.getElementById('googleSearch').innerText = "Results from google:";
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
@@ -109,7 +109,7 @@
 
 					var placeDetails = document.getElementById('placeDetails');
 
-					placeDetails.innerText = 'Some details:' + '\n';
+					placeDetails.innerText = '';//'Some details:' + '\n';
 
 					if (response.placeDetails != false) {
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
