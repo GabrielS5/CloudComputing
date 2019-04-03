@@ -82,13 +82,13 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					document.getElementById('imagine').style = "width:1000px;height:800px;"
+					document.getElementById('imagine').style = "width:1000px;height:800px;margin-top:10px;"
 
 					//document.getElementById('googleSearch').innerText = "Results from google:";
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
-					parent.innerText = 'Results from Google:'
+					parent.innerText = '<u>Results from Google:</u>'
 
 					response.searchResponses.forEach(item => {
 						var child = document.createElement('A');
@@ -96,32 +96,33 @@
 						child.innerText = item.title;
 						var liChild = document.createElement('LI');
 						liChild.appendChild(child)
+						liChild.style ="margin-left:7px;"
 						parent.appendChild(liChild);
 					});
-					parent.style = "background: thistle;border: 2mm ridge purple;padding: 0.7rem;background-size: 400% 400%;";
+					parent.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
 
 					var imageProperties = document.getElementById('imageProperties');
 
 					imageProperties.innerText = '';
-					imageProperties.innerText += "Another information: " + '\n';
+					imageProperties.innerText += "<u>Another information:</u>" + '\n';
 					imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
 					imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
 					imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
 					imageProperties.innerText += "Others " + response.imageProperties.others + '%\n';
-					imageProperties.style = "background: thistle;border: 2mm ridge purple;padding: 0.7rem;background-size: 400% 400%;";
+					imageProperties.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
 
 					var placeDetails = document.getElementById('placeDetails');
 
 					placeDetails.innerText = '';
                     
 					if (response.placeDetails != false) {
-						placeDetails.innerText +='Some details:' + '\n';
+						placeDetails.innerText +='<u>Some details:</u>' + '\n';
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
 						placeDetails.innerText += "Short Name -> " + response.placeDetails.shortName + '\n';
 						placeDetails.innerText += "Location Type -> " + response.placeDetails.type + '\n';
 						placeDetails.innerText += "Latitude -> " + response.placeDetails.latitude + '\n';
 						placeDetails.innerText += "Longitude -> " + response.placeDetails.longitude + '\n';
-						placeDetails.style = "background: thistle;border: 2mm ridge purple;padding: 0.7rem;background-size: 400% 400%;";
+						placeDetails.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
 					}
 				}
 			};
