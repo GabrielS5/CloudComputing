@@ -84,12 +84,10 @@
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
 					document.getElementById('imagine').style = "width:1000px;height:800px;margin-top:10px;"
 
-					//document.getElementById('googleSearch').innerText = "Results from google:";
-
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
-					parent.innerText = 'Results from Google:'
-					parent.style.textDecoration = "underline";
+					var txt = "Results from Google: ";
+					parent.innerText = txt.bold();
 
 					response.searchResponses.forEach(item => {
 						var child = document.createElement('A');
@@ -97,7 +95,7 @@
 						child.innerText = item.title;
 						var liChild = document.createElement('LI');
 						liChild.appendChild(child)
-						liChild.style ="margin-left:10px;"
+						liChild.style ="margin-left:15px;"
 						parent.appendChild(liChild);
 					});
 					parent.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
@@ -105,8 +103,7 @@
 					var imageProperties = document.getElementById('imageProperties');
 
 					imageProperties.innerText = '';
-					imageProperties.innerText += "Another information:" + '\n';
-					imageProperties.style.textDecoration = "underline";
+					imageProperties.innerText += "Another information:".bold() + '\n';
 					imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
 					imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
 					imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
@@ -118,8 +115,7 @@
 					placeDetails.innerText = '';
                     
 					if (response.placeDetails != false) {
-						placeDetails.innerText +='Some details:' + '\n';
-						placeDetails.style.textDecoration = "underline";
+						placeDetails.innerText +='Some details:'.bold() + '\n';
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
 						placeDetails.innerText += "Short Name -> " + response.placeDetails.shortName + '\n';
 						placeDetails.innerText += "Location Type -> " + response.placeDetails.type + '\n';
