@@ -24,17 +24,7 @@
             align-items: center;
 			padding-top: 50px;
 		}
-		#listaQuery{
-			margin-top: 10px;
-			font-size: 20px;
-			text-align: justify;
-		}
-		#placeDetails{
-			margin-top: 10px;
-			font-size: 20px;
-			text-align: justify;
-		}
-		#imageProperties{
+		#item{
 			margin-top: 10px;
 			font-size: 20px;
 			text-align: justify;
@@ -55,20 +45,20 @@
 			<input type="button" value="Send" onclick="onSend()" />
 		</div>
 
-	    <div>
+	    <div id ="item">
 		    <ul id="listaQuery"></ul>
 	    </div>
 
-	    <div id='placeDetails'>
-
+		<div id ="item">
+			<ul id='placeDetails'></ul>
 	    </div>
 
-	    <div>
+	    <div id ="item">
 		    <img id="imagine" />
 	    </div>
 
-	    <div id='imageProperties'>
-
+	    <div id = "item">
+			<ul id='imageProperties'></ul>
 	    </div>
     </div>
 </body>
@@ -82,13 +72,12 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					document.getElementById('imagine').style = "width:1000px;height:800px;margin-top:10px;"
+					document.getElementById('imagine').style = "width:1000px;height:800px;"
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
 					
 					parent.innerText = 'Results from Google:'
-					parent.style = "font-weight: bold;";
 
 					response.searchResponses.forEach(item => {
 						var child = document.createElement('A');
@@ -105,11 +94,22 @@
 
 					imageProperties.innerText = '';
 					imageProperties.innerText += "Another information:" + '\n';
-					imageProperties.style = "font-weight: bold;";
-					imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
-					imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
-					imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
-					imageProperties.innerText += "Others " + response.imageProperties.others + '%\n';
+					var liChild = document.createElement('LI');
+					liChild.innerText += "Fields " + response.imageProperties.fields+'%';
+					liChild.style ="margin-left:15px;"
+					imageProperties.appendChild(liChild);
+					var liChild = document.createElement('LI');
+					liChild.innerText += "Mountains " + response.imageProperties.mountains + '%';
+					liChild.style ="margin-left:15px;"
+					imageProperties.appendChild(liChild);
+					var liChild = document.createElement('LI');
+					liChild.innerText += "Water " + response.imageProperties.water + '%';
+					liChild.style ="margin-left:15px;"
+					imageProperties.appendChild(liChild);
+					var liChild = document.createElement('LI');
+					liChild.innerText += "Others " + response.imageProperties.others + '%';
+					liChild.style ="margin-left:15px;"
+					imageProperties.appendChild(liChild);
 					imageProperties.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
 
 					var placeDetails = document.getElementById('placeDetails');
@@ -118,7 +118,6 @@
                     
 					if (response.placeDetails != false) {
 						placeDetails.innerText +='Some details:' + '\n';
-						placeDetails.style = "font-weight: bold;";
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
 						placeDetails.innerText += "Short Name -> " + response.placeDetails.shortName + '\n';
 						placeDetails.innerText += "Location Type -> " + response.placeDetails.type + '\n';
