@@ -86,8 +86,9 @@
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
-					var txt = "Results from Google: ";
-					parent.innerText = txt.bold();
+					
+					parent.innerText = 'Results from Google:'
+					parent.style = "font-weight: bold;";
 
 					response.searchResponses.forEach(item => {
 						var child = document.createElement('A');
@@ -103,7 +104,8 @@
 					var imageProperties = document.getElementById('imageProperties');
 
 					imageProperties.innerText = '';
-					imageProperties.innerText += "Another information:".bold() + '\n';
+					imageProperties.innerText += "Another information:" + '\n';
+					imageProperties.style = "font-weight: bold;";
 					imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
 					imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
 					imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
@@ -115,7 +117,8 @@
 					placeDetails.innerText = '';
                     
 					if (response.placeDetails != false) {
-						placeDetails.innerText +='Some details:'.bold() + '\n';
+						placeDetails.innerText +='Some details:' + '\n';
+						placeDetails.style = "font-weight: bold;";
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
 						placeDetails.innerText += "Short Name -> " + response.placeDetails.shortName + '\n';
 						placeDetails.innerText += "Location Type -> " + response.placeDetails.type + '\n';
