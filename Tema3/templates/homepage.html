@@ -25,16 +25,19 @@
 			padding-top: 50px;
 		}
 		#listaQuery{
-			
+			margin-top: 10px;
 			font-size: 20px;
+			text-align: justify;
 		}
 		#placeDetails{
-			
+			margin-top: 10px;
 			font-size: 20px;
+			text-align: justify;
 		}
 		#imageProperties{
-			
+			margin-top: 10px;
 			font-size: 20px;
+			text-align: justify;
 		}
 
 		</style>
@@ -95,26 +98,30 @@
 						liChild.appendChild(child)
 						parent.appendChild(liChild);
 					});
-					parent.style = "background: pink;";
+					parent.style = "background: thistle;border: 2mm ridge purple;padding: 0.7rem;background-size: 400% 400%;";
 
 					var imageProperties = document.getElementById('imageProperties');
 
 					imageProperties.innerText = '';
+					imageProperties.innerText += "Another information: " + '\n';
 					imageProperties.innerText += "Fields " + response.imageProperties.fields + '%\n';
 					imageProperties.innerText += "Mountains " + response.imageProperties.mountains + '%\n';
 					imageProperties.innerText += "Water " + response.imageProperties.water + '%\n';
 					imageProperties.innerText += "Others " + response.imageProperties.others + '%\n';
+					imageProperties.style = "background: thistle;border: 2mm ridge purple;padding: 0.7rem;background-size: 400% 400%;";
 
 					var placeDetails = document.getElementById('placeDetails');
 
-					placeDetails.innerText = '';//'Some details:' + '\n';
-
+					placeDetails.innerText = '';
+                    
 					if (response.placeDetails != false) {
+						placeDetails.innerText +='Some details:' + '\n';
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
 						placeDetails.innerText += "Short Name -> " + response.placeDetails.shortName + '\n';
 						placeDetails.innerText += "Location Type -> " + response.placeDetails.type + '\n';
 						placeDetails.innerText += "Latitude -> " + response.placeDetails.latitude + '\n';
 						placeDetails.innerText += "Longitude -> " + response.placeDetails.longitude + '\n';
+						placeDetails.style = "background: thistle;border: 2mm ridge purple;padding: 0.7rem;background-size: 400% 400%;";
 					}
 				}
 			};
