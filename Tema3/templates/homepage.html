@@ -28,10 +28,6 @@
 			
 			font-size: 20px;
 		}
-		#googleSearch{
-			
-			font-size: 25px;
-		}
 		#placeDetails{
 			
 			font-size: 20px;
@@ -56,7 +52,7 @@
 			<input type="button" value="Send" onclick="onSend()" />
 		</div>
 
-	    <div id = "googleSearch">
+	    <div>
 		    <ul id="listaQuery"></ul>
 	    </div>
 
@@ -85,7 +81,7 @@
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
 					document.getElementById('imagine').style = "width:1000px;height:800px;"
 
-					document.getElementById('googleSearch').innerText = "Results from google:";
+					//document.getElementById('googleSearch').innerText = "Results from google:";
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
