@@ -27,10 +27,6 @@
 		#listaQuery{
 			
 			font-size: 20px;
-			background: linear-gradient(-45deg, orange, #ff8800, #e09b04, #f77d26);
-	        border: 2mm ridge thistle;
-	        border-radius: 12px;
-	        padding: 0.7rem;
 		}
 		#placeDetails{
 			
@@ -89,6 +85,7 @@
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
+					parent.innerText = 'Results from Google:'
 
 					response.searchResponses.forEach(item => {
 						var child = document.createElement('A');
@@ -98,6 +95,7 @@
 						liChild.appendChild(child)
 						parent.appendChild(liChild);
 					});
+					parent.style = "background: pink;";
 
 					var imageProperties = document.getElementById('imageProperties');
 
