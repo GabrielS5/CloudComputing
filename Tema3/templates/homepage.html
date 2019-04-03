@@ -25,13 +25,20 @@
 			padding-top: 50px;
 		}
 		#listaQuery{
-			font-size: 20px;
+			padding-top: 10px;
+			font-size: 25px;
+		}
+		#googleSearch{
+			padding-top: 10px;
+			font-size: 30px;
 		}
 		#placeDetails{
-
+			padding-top: 10px;
+			font-size: 25px;
 		}
 		#imageProperties{
-
+			padding-top: 10px;
+			font-size: 25px;
 		}
 
 		</style>
@@ -40,16 +47,16 @@
 	<div id="title">Hello there!</div>
 	<div id="content">
 		<div id = "text">
-			I will give you information about any location you want.
+			I will give you information about any country you want.
 		</div>
         <div id = "text">
-			<span><b>Enter a location:</b></span>
+			<span><b>Enter a country:</b></span>
 			<br />
 			<input type="text" id="client-input" />
 			<input type="button" value="Send" onclick="onSend()" />
 		</div>
 
-	    <div>
+	    <div id = "googleSearch">
 		    <ul id="listaQuery"></ul>
 	    </div>
 
@@ -76,7 +83,9 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					//document.getElementById('imagine').style = "width:1000px;height:400px;"
+					document.getElementById('imagine').style = "width:1000px;height:400px;"
+
+					document.getElementById('googleSearch').innerHTML = "Restults from google:";
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
@@ -100,7 +109,7 @@
 
 					var placeDetails = document.getElementById('placeDetails');
 
-					placeDetails.innerText = '';
+					placeDetails.innerText = 'Some details:' + '\n';
 
 					if (response.placeDetails != false) {
 						placeDetails.innerText += "Long Name -> " + response.placeDetails.longName + '\n';
