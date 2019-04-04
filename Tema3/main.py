@@ -10,9 +10,7 @@ from google.cloud import storage
 from google.cloud import vision
 
 
-CLOUD_STORAGE_BUCKET = os.environ.get('CLOUD_STORAGE_BUCKET')
-
-print(CLOUD_STORAGE_BUCKET)
+CLOUD_STORAGE_BUCKET = 'testproject-235616'
 
 app = Flask(__name__)
 
