@@ -72,7 +72,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					document.getElementById('imagine').style = "width:1000px;height:800px;border: 2mm ridge midnightblue;padding: 0.7rem;"
+					document.getElementById('imagine').style = "width:1000px;height:800px;border: 2mm ridge midnightblue;"
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
