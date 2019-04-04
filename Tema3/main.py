@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import logging
 import os, requests,cgi, json, codecs,math
@@ -32,7 +31,8 @@ def getPlaceDetails(location):
         url = 'https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM&placeid=' + placeId
         response = requests.get(url)
         if response.ok:
-            print(response.json())
+            result = response.json()['result']
+            return {'latitude': result['geometry']['location']['lat'], 'longitude': result['geometry']['location']['lng'], 'shortName': result['address_components'][0]['short_name'],'longName': result['address_components'][0]['long_name'], 'type': result['types'][0]}
         else:
             return False
     else:
@@ -105,7 +105,7 @@ def getFromDatastore(name):
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
     blob = bucket.get_blob(result['image_blob'])
-    return  {'name': result['name'], 'imageProperties': result['imageProperties'], 'searchResponses': result['searchResponses'],"image":blob.download_as_string().decode()}
+    return  {'name': result['name'], 'imageProperties': result['imageProperties'], 'searchResponses': result['searchResponses'],"image":blob.download_as_string().decode(), "placeDetails": result['placeDetails']}
 
 def insertInDatastore(item):
     storage_client = storage.Client()
@@ -123,6 +123,7 @@ def insertInDatastore(item):
     entity['image_blob'] = blob.name
     entity['imageProperties'] = item['imageProperties']
     entity['searchResponses'] = item['searchResponses']
+    entity['placeDetails'] = item['placeDetails']
     datastore_client.put(entity)
 
 
@@ -133,11 +134,11 @@ def compute():
     if not databaseItem == False:
         return json.dumps(databaseItem)
 
-    getPlaceDetails(input)
+    placeDetails = getPlaceDetails(input)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
-    result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']}
+    result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64'], 'placeDetails': placeDetails}
     insertInDatastore(result)
     return json.dumps(result)
 
