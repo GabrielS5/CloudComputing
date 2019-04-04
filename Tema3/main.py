@@ -12,6 +12,7 @@ from google.cloud import vision
 
 CLOUD_STORAGE_BUCKET = os.environ.get('CLOUD_STORAGE_BUCKET')
 
+print(CLOUD_STORAGE_BUCKET)
 
 app = Flask(__name__)
 
