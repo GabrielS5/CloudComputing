@@ -72,7 +72,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					document.getElementById('imagine').style = "width:1000px;height:800px;"
+					document.getElementById('imagine').style = "width:1000px;height:800px;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;"
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
@@ -93,7 +93,7 @@
 					var imageProperties = document.getElementById('imageProperties');
 
 					imageProperties.innerText = '';
-					imageProperties.innerText += "Another information:" + '\n';
+					imageProperties.innerText += "Map information:" + '\n';
 					var liChild = document.createElement('LI');
 					liChild.innerText += "Fields " + response.imageProperties.fields+'%';
 					liChild.style ="margin-left:15px;"
