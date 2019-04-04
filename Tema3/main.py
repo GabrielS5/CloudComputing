@@ -1,16 +1,3 @@
-# Copyright 2017 Google Inc. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 from datetime import datetime
 import logging
@@ -45,8 +32,7 @@ def getPlaceDetails(location):
         url = 'https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCNQX5-4_hPDpluC7j-EZK13Oixn_47DpM&placeid=' + placeId
         response = requests.get(url)
         if response.ok:
-            result = response.json()['result']
-            return {'latitude': result['geometry']['location']['lat'], 'longitude': result['geometry']['location']['lng'], 'shortName': result['address_components'][0]['short_name'],'longName': result['address_components'][0]['long_name'], 'type': result['types'][0]}
+            print(response.json())
         else:
             return False
     else:
@@ -119,7 +105,7 @@ def getFromDatastore(name):
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
     blob = bucket.get_blob(result['image_blob'])
-    return  {'name': result['name'], 'imageProperties': result['imageProperties'], 'searchResponses': result['searchResponses'],"image":blob.download_as_string().decode(), "placeDetails": result['placeDetails']}
+    return  {'name': result['name'], 'imageProperties': result['imageProperties'], 'searchResponses': result['searchResponses'],"image":blob.download_as_string().decode()}
 
 def insertInDatastore(item):
     storage_client = storage.Client()
@@ -137,7 +123,6 @@ def insertInDatastore(item):
     entity['image_blob'] = blob.name
     entity['imageProperties'] = item['imageProperties']
     entity['searchResponses'] = item['searchResponses']
-    entity['placeDetails'] = item['placeDetails']
     datastore_client.put(entity)
 
 
@@ -148,11 +133,11 @@ def compute():
     if not databaseItem == False:
         return json.dumps(databaseItem)
 
-    placeDetails = getPlaceDetails(input)
+    getPlaceDetails(input)
     mapImage = getImageFromlocation(input)
     searchResponses = getSearchResponses(input)
     imageProperties = getImageProperties(mapImage['binary'])
-    result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64'], 'placeDetails': placeDetails}
+    result = {'name': input, 'imageProperties': imageProperties, 'searchResponses': searchResponses,"image":mapImage['base64']}
     insertInDatastore(result)
     return json.dumps(result)
 
