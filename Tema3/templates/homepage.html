@@ -72,7 +72,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					response = JSON.parse(xhttp.responseText);
 					document.getElementById('imagine').src = 'data:image/jpeg;base64,' + response.image;
-					document.getElementById('imagine').style = "width:1000px;height:800px;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;"
+					document.getElementById('imagine').style = "width:1000px;height:800px;border: 2mm ridge midnightblue;padding: 0.7rem;"
 
 					var parent = document.getElementById('listaQuery');
 					parent.innerHTML = '';
@@ -91,7 +91,7 @@
 					parent.style = "background: lightblue;border: 2mm ridge midnightblue;padding: 0.7rem;background-size: 400% 400%;";
 
 					var imageProperties = document.getElementById('imageProperties');
-
+         
 					imageProperties.innerText = '';
 					imageProperties.innerText += "Map information:" + '\n';
 					var liChild = document.createElement('LI');
@@ -115,8 +115,8 @@
 					var placeDetails = document.getElementById('placeDetails');
 
 					placeDetails.innerText = '';
-                    
-					if (response.placeDetails != false) {
+          placeDetails.style = null;          
+					if (response.placeDetails != false ) {
 						placeDetails.innerText +='Some details:' + '\n';
 						var liChild = document.createElement('LI');
 						liChild.innerText += "Long Name -> " + response.placeDetails.longName;
