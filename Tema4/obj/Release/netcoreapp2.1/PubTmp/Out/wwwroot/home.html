@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas-service.min.js"></script>
+
+    <script>
+        var map = null;
+        var latitude = 0;
+        var longitude = 0;
+        var zoom = 1;
+        var resultLayer = null;
+
+        function onSend() {
+            let input = document.getElementById('location').value;
+            if (location == '') {
+            } else {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        response = JSON.parse(xhttp.responseText);
+                        console.log(response);
+                        latitude = response.latitude;
+                        longitude = response.longitude;
+                        if (response.type == 'Country') {
+                            zoom = 6;
+                        } else {
+                            zoom = 10;
+                        }
+
+                        onUpdate();
+
+                        var details = document.getElementById('details');
+
+                        details.innerText = '';
+                        details.innerText += "Details:" + '\n';
+
+                        var liChild = document.createElement('LI');
+                        liChild.innerText += "Name: " + response.name;
+                        details.appendChild(liChild);
+
+                        if (response.type != 'Country') {
+                            var liChild = document.createElement('LI');
+                            liChild.innerText += "Country: " + response.country;
+                            details.appendChild(liChild);
+                        }
+
+                        var liChild = document.createElement('LI');
+                        liChild.innerText += "Country Code: " + response.countryCode;
+                        details.appendChild(liChild);
+
+                        var liChild = document.createElement('LI');
+                        liChild.innerText += "Location type: " + response.type;
+                        details.appendChild(liChild);
+
+                        var liChild = document.createElement('LI');
+                        liChild.innerText += "Latitude: " + response.latitude;
+                        details.appendChild(liChild);
+
+                        var liChild = document.createElement('LI');
+                        liChild.innerText += "Longitude: " + response.longitude;
+                        details.appendChild(liChild);
+
+
+                    }
+                };
+                // published -> https://temacc420190505121025.azurewebsites.net
+                // development -> https://localhost:44399
+                xhttp.open(
+                    'GET',
+                    'https://temacc420190505121025.azurewebsites.net/api/values?query=' + input,
+                    true
+                );
+                xhttp.send();
+            }
+        }
+
+        function showPopup(e) {
+            var p = e.shapes[0].getProperties();
+            var position = e.shapes[0].getCoordinates();
+            var html = ['<div style="padding:5px"><div><b>', p.poi.name,
+                '</b></div><div>', p.address.freeformAddress,
+                '</div><div>', position[1], ', ', position[0], '</div></div>'];
+            popup.setPopupOptions({
+                content: html.join(''),
+                position: position
+            });
+            popup.open(map);
+        }
+
+        function closePopup() {
+            popup.close();
+        }
+
+        function createMap() {
+            map = new atlas.Map("map", {
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: 'jafHlPTWuF0LcBMgiZiU8Sp8lSCOmUjnZ9lPpST7idw'
+                }
+            });
+            map.events.add('ready', function () {
+                datasource = new atlas.source.DataSource();
+                map.sources.add(datasource);
+                resultLayer = new atlas.layer.SymbolLayer(datasource, null, {
+                    iconOptions: {
+                        image: 'pin-round-darkblue',
+                        anchor: 'center',
+                        allowOverlap: true
+                    },
+                    textOptions: {
+                        anchor: "top"
+                    }
+                });
+                map.layers.add(resultLayer);
+            });
+            onUpdate();
+        }
+
+        function onUpdate() {
+            let input = document.getElementById('point-of-interest').value;
+
+
+            var subscriptionKeyCredential = new atlas.service.SubscriptionKeyCredential(atlas.getSubscriptionKey());
+            var pipeline = atlas.service.MapsURL.newPipeline(subscriptionKeyCredential);
+            var searchURL = new atlas.service.SearchURL(pipeline);
+            var radius = 10000;
+
+            if (input != '') {
+                searchURL.searchPOI(atlas.service.Aborter.timeout(10000), input, {
+                    limit: 100,
+                    lat: latitude,
+                    lon: longitude,
+                    radius: radius
+                }).then((results) => {
+                    var data = results.geojson.getFeatures();
+                    datasource.add(data);
+
+                    map.setCamera({
+                        bounds: data.bbox,
+                        padding: 15
+                    });
+                    map.setCamera({
+                        zoom: zoom
+                    });
+                });
+                popup = new atlas.Popup();
+
+                map.events.add('mouseover', resultLayer, showPopup);
+                map.events.add('click', closePopup);
+            } else {
+                searchURL.searchPOI(atlas.service.Aborter.timeout(10000), "Church", {
+                    limit: 100,
+                    lat: latitude,
+                    lon: longitude,
+                    radius: radius
+                }).then((results) => {
+                    var data = results.geojson.getFeatures();
+                    map.setCamera({
+                        bounds: data.bbox,
+                        padding: 15
+                    });
+
+                    map.setCamera({
+                        zoom: zoom
+                    });
+                });
+            }
+        }
+
+    </script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #map {
+            width: 1500px;
+            height: 800px;
+            margin-left: 150px;
+            margin-right: 150px;
+        }
+
+        #title {
+            text-align: center;
+            font-size: 150px;
+            font-style: italic;
+        }
+
+        #text {
+            padding-top: 10px;
+            font-size: 30px;
+        }
+
+        #content {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        #item {
+            margin-top: 10px;
+            font-size: 20px;
+            text-align: justify;
+        }
+    </style>
+</head>
+
+<body onload="createMap()">
+
+    <div id="title">Hello there!</div>
+    <div id="content">
+        <div id="text">
+            I will give you information about any location you want.
+        </div>
+        <div id="text">
+            <span><b>Enter a location:</b></span>
+            <br />
+        </div>
+        <div id="text">
+            <input type="text" id="location" />
+            <input type="button" value="Send" onclick="onSend()" />
+        </div>
+
+        <div id="text">
+            <span><b>Enter a point of interest:</b></span>
+            <br />
+        </div>
+        <div id="text">
+            <input type="text" id="point-of-interest" />
+            <input type="button" value="Update" onclick="onUpdate()" />
+        </div>
+
+        <div id="item">
+            <div id="map"></div>
+        </div>
+
+        <div id="item">
+            <ul id="details"></ul>
+        </div>
+
+        <div id="item">
+            <ul id='imageProperties'></ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
