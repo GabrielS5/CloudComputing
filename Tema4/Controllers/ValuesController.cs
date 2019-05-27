@@ -22,15 +22,15 @@ namespace TemaCC4.Controllers
         public async Task<ActionResult<Location>> Get([FromQuery]string query)
         {
             if (string.IsNullOrEmpty(query))
-                return Ok();
+                return null;
 
-            var location = this.locationsService.GetLocation(query);
-
-            if (location == null)
-            {
-                location = await httpService.GetLocation(query);
-                locationsService.AddLocation(location);
-            }
+           // var location = null;// this.locationsService.GetLocation(query);
+            //
+           // if (location == null)
+            //{
+                var location = await httpService.GetLocation(query);
+                //locationsService.AddLocation(location);
+            //}
 
             return location;
         }

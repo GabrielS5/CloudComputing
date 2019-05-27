@@ -15,6 +15,38 @@
         var zoom = 1;
         var resultLayer = null;
 
+        var clickedPoi = false;
+
+        function showPopup(e) {
+            var p = e.shapes[0].getProperties();
+            var position = e.shapes[0].getCoordinates();
+            var html = ['<div style="padding:5px"><div><b>', p.poi.name,
+                '</b></div><div>', p.address.freeformAddress,
+                '</div><div>', position[1], ', ', position[0], '</div></div>'];
+            popup.setPopupOptions({
+                content: html.join(''),
+                position: position
+            });
+            popup.open(map);
+        }
+
+        function extra(e) {
+            clickedPoi = true;
+             var p = e.shapes[0].getProperties();
+            var position = e.shapes[0].getCoordinates();
+            console.log(p);
+        }
+
+        function closePopup() {
+            if (!clickedPoi)
+                popup.close();
+
+            clickedPoi = false;
+        }
+
+
+
+
         function onSend() {
             let input = document.getElementById('location').value;
             if (location == '') {
@@ -72,28 +104,11 @@
                 // development -> https://localhost:44399
                 xhttp.open(
                     'GET',
-                    'https://temacc420190505121025.azurewebsites.net/api/values?query=' + input,
+                    'https://localhost:44399/api/values?query=' + input,
                     true
                 );
                 xhttp.send();
             }
-        }
-
-        function showPopup(e) {
-            var p = e.shapes[0].getProperties();
-            var position = e.shapes[0].getCoordinates();
-            var html = ['<div style="padding:5px"><div><b>', p.poi.name,
-                '</b></div><div>', p.address.freeformAddress,
-                '</div><div>', position[1], ', ', position[0], '</div></div>'];
-            popup.setPopupOptions({
-                content: html.join(''),
-                position: position
-            });
-            popup.open(map);
-        }
-
-        function closePopup() {
-            popup.close();
         }
 
         function createMap() {
@@ -138,6 +153,7 @@
                     radius: radius
                 }).then((results) => {
                     var data = results.geojson.getFeatures();
+                    datasource.clear();
                     datasource.add(data);
 
                     map.setCamera({
@@ -151,6 +167,7 @@
                 popup = new atlas.Popup();
 
                 map.events.add('mouseover', resultLayer, showPopup);
+                map.events.add('click', resultLayer, extra);
                 map.events.add('click', closePopup);
             } else {
                 searchURL.searchPOI(atlas.service.Aborter.timeout(10000), "Church", {
@@ -160,6 +177,7 @@
                     radius: radius
                 }).then((results) => {
                     var data = results.geojson.getFeatures();
+                    datasource.clear();
                     map.setCamera({
                         bounds: data.bbox,
                         padding: 15

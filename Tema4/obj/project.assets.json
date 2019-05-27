@@ -11481,11 +11481,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gabri\\source\\repos\\TemaCC4\\TemaCC4.csproj",
+      "projectUniqueName": "C:\\Users\\gabri\\Desktop\\Git 2\\CloudComputing\\Tema4\\TemaCC4.csproj",
       "projectName": "TemaCC4",
-      "projectPath": "C:\\Users\\gabri\\source\\repos\\TemaCC4\\TemaCC4.csproj",
+      "projectPath": "C:\\Users\\gabri\\Desktop\\Git 2\\CloudComputing\\Tema4\\TemaCC4.csproj",
       "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gabri\\source\\repos\\TemaCC4\\obj\\",
+      "outputPath": "C:\\Users\\gabri\\Desktop\\Git 2\\CloudComputing\\Tema4\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"

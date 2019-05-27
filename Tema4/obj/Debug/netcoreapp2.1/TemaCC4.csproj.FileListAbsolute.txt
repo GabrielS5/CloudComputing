@@ -12,3 +12,17 @@ C:\Users\gabri\source\repos\TemaCC4\obj\Debug\netcoreapp2.1\TemaCC4.AssemblyInfo
 C:\Users\gabri\source\repos\TemaCC4\obj\Debug\netcoreapp2.1\TemaCC4.RazorTargetAssemblyInfo.cache
 C:\Users\gabri\source\repos\TemaCC4\obj\Debug\netcoreapp2.1\TemaCC4.dll
 C:\Users\gabri\source\repos\TemaCC4\obj\Debug\netcoreapp2.1\TemaCC4.pdb
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\bin\Debug\netcoreapp2.1\TemaCC4.deps.json
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\bin\Debug\netcoreapp2.1\TemaCC4.runtimeconfig.json
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\bin\Debug\netcoreapp2.1\TemaCC4.runtimeconfig.dev.json
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\bin\Debug\netcoreapp2.1\TemaCC4.dll
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\bin\Debug\netcoreapp2.1\TemaCC4.pdb
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.csprojAssemblyReference.cache
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.csproj.CoreCompileInputs.cache
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.RazorAssemblyInfo.cache
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.RazorAssemblyInfo.cs
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.AssemblyInfoInputs.cache
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.AssemblyInfo.cs
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.RazorTargetAssemblyInfo.cache
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.dll
+C:\Users\gabri\Desktop\Git 2\CloudComputing\Tema4\obj\Debug\netcoreapp2.1\TemaCC4.pdb
