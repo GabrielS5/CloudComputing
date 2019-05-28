@@ -18,6 +18,9 @@ namespace TemaCC4.Services
 
         public async Task Add(PointOfInterest pointOfInterest)
         {
+            if ((await GetAll()).FirstOrDefault(f => f.Name == pointOfInterest.Name) != null)
+                return;
+
             await context.PointsOfInterest.AddAsync(pointOfInterest);
 
             await context.SaveChangesAsync();
