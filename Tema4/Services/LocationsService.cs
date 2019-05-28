@@ -17,6 +17,7 @@ namespace TemaCC4.Services
         public void AddLocation(Location location)
         {
             context.Locations.Add(location);
+
             context.SaveChanges();
         }
 

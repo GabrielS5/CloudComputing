@@ -32,9 +32,11 @@
 
         function extra(e) {
             clickedPoi = true;
-             var p = e.shapes[0].getProperties();
+            var properties = e.shapes[0].getProperties();
             var position = e.shapes[0].getCoordinates();
-            console.log(p);
+
+
+            sendPoi({ longitude: position[0], latitude: position[1], name: properties.poi.name, type: properties.poi.categories[0] });
         }
 
         function closePopup() {
@@ -55,7 +57,7 @@
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         response = JSON.parse(xhttp.responseText);
-                        console.log(response);
+
                         latitude = response.latitude;
                         longitude = response.longitude;
                         if (response.type == 'Country') {
@@ -104,7 +106,7 @@
                 // development -> https://localhost:44399
                 xhttp.open(
                     'GET',
-                    'https://localhost:44399/api/values?query=' + input,
+                    'https://localhost:44399/api/locations?query=' + input,
                     true
                 );
                 xhttp.send();
@@ -190,6 +192,24 @@
             }
         }
 
+        function sendPoi(poi) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log("sent");
+                }
+            };
+            // published -> https://temacc420190505121025.azurewebsites.net
+            // development -> https://localhost:44399
+            xhttp.open(
+                'POST',
+                'https://localhost:44399/api/pointsofinterest?latitude=' + poi.latitude + "&longitude=" + poi.longitude + "&name=" + poi.name + "&type=" + poi.type,
+                true
+            );
+            xhttp.send();
+        }
+      
+
     </script>
 
     <style>
@@ -232,10 +252,39 @@
             font-size: 20px;
             text-align: justify;
         }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            .menu li {
+                float: left;
+            }
+
+                .menu li a {
+                    display: block;
+                    color: white;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+
+                    .menu li a:hover {
+                        background-color: #111;
+                    }
     </style>
 </head>
 
 <body onload="createMap()">
+
+    <ul class="menu">
+        <li><a class="active" href="/home.html">Home</a></li>
+        <li><a href="/interests.html">Your Interests</a></li>
+    </ul>
 
     <div id="title">Hello there!</div>
     <div id="content">

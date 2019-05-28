@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas-service.min.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            .menu li {
+                float: left;
+            }
+
+                .menu li a {
+                    display: block;
+                    color: white;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+
+                    .menu li a:hover {
+                        background-color: #111;
+                    }
+
+        .interestItem {
+            list-style-type: none;
+            border: 2px solid black;
+            padding: 10px;
+            margin: 5px;
+            font-size: 20px;
+            width: 100%;
+        }
+
+        .interestsSection {
+            width: 35%;
+            display: inline-block;
+            margin: 50px;
+        }
+
+        .mapSection {
+            width: 55%;
+            display: inline-block;
+            margin-top: 200px;
+            float: right;
+        }
+
+        .item-button {
+            float: right;
+            display: inline;
+        }
+
+        #map {
+            width: 700px;
+            height: 700px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body onload="getInterests()">
+    <ul class="menu">
+        <li><a href="/home.html">Home</a></li>
+        <li><a class="active" href="/interests.html">Your Interests</a></li>
+    </ul>
+    <div class="interestsSection">
+        <ul id="interests"></ul>
+    </div>
+    <div class="mapSection">
+        <div id="map"></div>
+    </div>
+</body>
+<script>
+
+    var interests;
+    var userPosition;
+    var dataSource;
+    var routeUrl;
+    var map;
+
+    navigator.geolocation.getCurrentPosition(getUserPosition);
+
+    function getUserPosition(position) {
+        userPosition = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        };
+    }
+
+    function getInterests() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                interests = JSON.parse(xhttp.responseText);
+                displayInterests(interests);
+            }
+        };
+        // published -> https://temacc420190505121025.azurewebsites.net
+        // development -> https://localhost:44399
+        xhttp.open(
+            'GET',
+            'https://localhost:44399/api/pointsofinterest',
+            true
+        );
+        xhttp.send();
+    }
+
+    function displayInterests(interests) {
+        var interestsList = document.getElementById('interests');
+
+        interestsList.innerText = '';
+
+        for (let i = 0; i < interests.length; i++) {
+            var liChild = document.createElement('LI');
+            liChild.innerText += interests[i].name;
+            liChild.classList.add("interestItem");
+
+            var selectButton = document.createElement("input");
+            selectButton.type = 'button';
+            selectButton.value = 'Select';
+            selectButton.classList.add("item-button");
+            selectButton.onclick = function () {
+                selectInterest(i);
+            };
+
+            var deleteButton = document.createElement("input");
+            deleteButton.type = 'button';
+            deleteButton.value = 'Delete';
+            deleteButton.classList.add("item-button");
+            deleteButton.onclick = function () {
+                deleteInterest(i);
+            };
+            liChild.appendChild(deleteButton);
+            liChild.appendChild(selectButton);
+
+            interestsList.appendChild(liChild);
+        }
+    }
+
+    function selectInterest(index) {
+        drawRoute(userPosition, interests[index], interests[index].name);
+    }
+
+    function deleteInterest(index) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                getInterests();
+            }
+        };
+        // published -> https://temacc420190505121025.azurewebsites.net
+        // development -> https://localhost:44399
+        xhttp.open(
+            'DELETE',
+            'https://localhost:44399/api/pointsofinterest?id=' + interests[index].id,
+            true
+        );
+        xhttp.send();
+    }
+
+    function createMap() {
+        map = new atlas.Map("map", {
+            authOptions: {
+                authType: 'subscriptionKey',
+                subscriptionKey: 'jafHlPTWuF0LcBMgiZiU8Sp8lSCOmUjnZ9lPpST7idw'
+            }
+        });
+
+        var subscriptionKeyCredential = new atlas.service.SubscriptionKeyCredential(atlas.getSubscriptionKey());
+        var pipeline = atlas.service.MapsURL.newPipeline(subscriptionKeyCredential);
+        routeURL = new atlas.service.RouteURL(pipeline);
+
+        map.events.add("ready", function () {
+
+            dataSource = new atlas.source.DataSource();
+            map.sources.add(dataSource);
+
+            var lineLayer = new atlas.layer.LineLayer(dataSource, null, {
+                strokeColor: '#2272B9',
+                strokeWidth: 5,
+                lineJoin: 'round',
+                lineCap: 'round'
+            });
+
+            map.layers.add(lineLayer, 'labels');
+
+            var symbolLayer = new atlas.layer.SymbolLayer(dataSource, null, {
+                iconOptions: {
+                    image: ['get', 'icon'],
+                    allowOverlap: true
+                },
+                textOptions: {
+                    textField: ['get', 'title'],
+                    offset: [0, 1.2]
+                },
+                filter: ['any', ['==', ['geometry-type'], 'Point'], ['==', ['geometry-type'], 'MultiPoint']]
+            });
+            map.layers.add(symbolLayer);
+        });
+    }
+
+    function drawRoute(startCoordinates, endCoordinates, name) {
+
+        dataSource.clear();
+
+        var startPoint = new atlas.data.Feature(new atlas.data.Point([startCoordinates.longitude, startCoordinates.latitude]), {
+            title: "You",
+            icon: "pin-blue"
+        });
+
+        var endPoint = new atlas.data.Feature(new atlas.data.Point([endCoordinates.longitude, endCoordinates.latitude]), {
+            title: name,
+            icon: "pin-round-blue"
+        });
+        console.log("mere");
+
+        dataSource.add([startPoint, endPoint]);
+
+        var coordinates = [[startPoint.geometry.coordinates[0],
+                            startPoint.geometry.coordinates[1]],
+                           [endPoint.geometry.coordinates[0],
+                            endPoint.geometry.coordinates[1]]];
+
+        routeURL.calculateRouteDirections(atlas.service.Aborter.timeout(10000), coordinates).then((directions) => {
+            var data = directions.geojson.getFeatures();
+            dataSource.add(data);
+
+            map.setCamera({
+                bounds: data.bbox,
+                padding: 20
+            });
+        });
+    }
+
+    createMap();
+
+</script>
+</html>

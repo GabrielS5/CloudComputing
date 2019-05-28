@@ -8,9 +8,11 @@ namespace TemaCC4.Database
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-//Database.Migrate();
+            Database.Migrate();
         }
 
         public DbSet<Location> Locations { get; set; }
+
+        public DbSet<PointOfInterest> PointsOfInterest { get; set; }
     }
 }

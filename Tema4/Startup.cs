@@ -23,6 +23,7 @@ namespace TemaCC4
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ILocationsService, LocationsService>();
+            services.AddScoped<IPointsOfInterestService, PointsOfInterestService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
