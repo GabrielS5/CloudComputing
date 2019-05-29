@@ -13,35 +13,54 @@ namespace TemaCC4.Controllers
     public class PointsOfInterestController : ControllerBase
     {
         private IPointsOfInterestService pointsOfInterestService;
+        private IUsersService usersService;
 
-        public PointsOfInterestController(IPointsOfInterestService pointsOfInterestService)
+        public PointsOfInterestController(IPointsOfInterestService pointsOfInterestService, IUsersService usersService)
         {
             this.pointsOfInterestService = pointsOfInterestService;
+            this.usersService = usersService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PointOfInterest>> Get(Guid id)
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<PointOfInterest>>> GetAll(Guid userId)
         {
-            return Ok(await pointsOfInterestService.GetById(id));
+            var isAuthenticated = await usersService.Authenticate(new User { Id = userId });
+
+            if (!isAuthenticated)
+                return Forbid();
+
+            var results = await pointsOfInterestService.GetAll();
+
+            results = results.Where(w => w.User != null &&  w.User.Id == userId);
+
+            return Ok(results);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PointOfInterest>>> GetAll()
+        [HttpPost("{userId}")]
+        public async Task<ActionResult<Location>> Post(Guid userId, [FromQuery]PointOfInterest pointOfInterest)
         {
-            return Ok(await pointsOfInterestService.GetAll());
-        }
+            var isAuthenticated = await usersService.Authenticate(new User { Id = userId });
 
-        [HttpPost]
-        public async Task<ActionResult<Location>> Post([FromQuery]PointOfInterest pointOfInterest)
-        {
+            if (!isAuthenticated)
+                return Forbid();
+
+            var user = await usersService.GetUserById(userId);
+
+            pointOfInterest.User = user;
+
             await pointsOfInterestService.Add(pointOfInterest);
 
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<Location>> Delete([FromQuery]PointOfInterest pointOfInterest)
+        [HttpDelete("{userId}")]
+        public async Task<ActionResult<Location>> Delete(Guid userId, [FromQuery]PointOfInterest pointOfInterest)
         {
+            var isAuthenticated = await usersService.Authenticate(new User { Id = userId });
+
+            if (!isAuthenticated)
+                return Forbid();
+
             await pointsOfInterestService.Delete(pointOfInterest);
 
             return Ok();

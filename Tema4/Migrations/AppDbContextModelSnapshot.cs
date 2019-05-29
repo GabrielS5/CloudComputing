@@ -54,9 +54,34 @@ namespace TemaCC4.Migrations
 
                     b.Property<string>("Type");
 
+                    b.Property<Guid?>("UserId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("PointsOfInterest");
+                });
+
+            modelBuilder.Entity("TemaCC4.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Password");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TemaCC4.Models.PointOfInterest", b =>
+                {
+                    b.HasOne("TemaCC4.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

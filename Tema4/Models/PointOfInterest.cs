@@ -13,5 +13,7 @@ namespace TemaCC4.Models
         public string Name { get; set; }
 
         public string Type { get; set; }
+
+        public User User { get; set; }
     }
 }

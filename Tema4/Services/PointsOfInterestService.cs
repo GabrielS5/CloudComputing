@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,9 +19,6 @@ namespace TemaCC4.Services
 
         public async Task Add(PointOfInterest pointOfInterest)
         {
-            if ((await GetAll()).FirstOrDefault(f => f.Name == pointOfInterest.Name) != null)
-                return;
-
             await context.PointsOfInterest.AddAsync(pointOfInterest);
 
             await context.SaveChangesAsync();
@@ -37,7 +35,7 @@ namespace TemaCC4.Services
 
         public async Task<IEnumerable<PointOfInterest>> GetAll()
         {
-            return context.PointsOfInterest.AsEnumerable();
+            return context.PointsOfInterest.Include(i => i.User).AsEnumerable();
         }
 
         public async Task<PointOfInterest> GetById(Guid id)

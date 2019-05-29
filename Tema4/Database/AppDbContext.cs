@@ -14,5 +14,7 @@ namespace TemaCC4.Database
         public DbSet<Location> Locations { get; set; }
 
         public DbSet<PointOfInterest> PointsOfInterest { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

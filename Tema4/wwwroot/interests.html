@@ -24,22 +24,26 @@
             background-color: #333;
         }
 
-            .menu li {
-                float: left;
+        .menu-item {
+            float: left;
+        }
+
+        .menu li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            .menu li a:hover {
+                background-color: #111;
             }
 
-                .menu li a {
-                    display: block;
-                    color: white;
-                    text-align: center;
-                    padding: 14px 16px;
-                    text-decoration: none;
-                }
-
-                    .menu li a:hover {
-                        background-color: #111;
-                    }
-
+        .user-cell {
+            float: right;
+            cursor: pointer;
+        }
         .interestItem {
             list-style-type: none;
             border: 2px solid black;
@@ -89,8 +93,10 @@
 
 <body onload="getInterests()">
     <ul class="menu">
-        <li><a href="/home.html">Home</a></li>
-        <li><a class="active" href="/interests.html">Your Interests</a></li>
+        <li class="menu-item"><a href="/home.html">Home</a></li>
+        <li class="menu-item"><a class="active" href="/interests.html">Your Interests</a></li>
+        <li class="user-cell"><a onclick="logOut()" id="logout"> Log Out</a></li>
+        <li class="user-cell"><a href="" id="user">User</a></li>
     </ul>
     <div class="interestsSection">
         <ul id="interests"></ul>
@@ -100,6 +106,8 @@
     </div>
 </body>
 <script>
+
+    ensureLoggedIn();
 
     var interests;
     var userPosition;
@@ -128,7 +136,7 @@
         // development -> https://localhost:44399
         xhttp.open(
             'GET',
-            'https://localhost:44399/api/pointsofinterest',
+            'https://localhost:44399/api/pointsofinterest/' + window.localStorage.getItem("userId"),
             true
         );
         xhttp.send();
@@ -181,7 +189,7 @@
         // development -> https://localhost:44399
         xhttp.open(
             'DELETE',
-            'https://localhost:44399/api/pointsofinterest?id=' + interests[index].id,
+            'https://localhost:44399/api/pointsofinterest/' + window.localStorage.getItem("userId")+'?id=' + interests[index].id,
             true
         );
         xhttp.send();
@@ -259,6 +267,39 @@
                 padding: 20
             });
         });
+    }
+
+    function ensureLoggedIn() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let response = JSON.parse(xhttp.response);
+                if (!response)
+                    window.location.href = 'login.html';
+                else {
+                    let element = document.getElementById("user");
+                    element.innerHTML = "Hello " + window.localStorage.getItem("name");
+                }
+            }
+        };
+
+
+        if (window.localStorage.getItem("userId") == null)
+            window.location.href = 'login.html';
+
+        // published -> https://temacc420190505121025.azurewebsites.net
+        // development -> https://localhost:44399
+        xhttp.open(
+            'GET',
+            'https://localhost:44399/api/users/authenticate?id=' + window.localStorage.getItem("userId"),
+            true
+        );
+        xhttp.send();
+    }
+
+    function logOut(){
+        window.localStorage.clear();
+        window.location.href = 'login.html';
     }
 
     createMap();
